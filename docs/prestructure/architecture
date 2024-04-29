@@ -1,0 +1,31 @@
+BASICS:
+	setting: military (near base game)
+	map format: CSV / TSV
+	texture making: https://www.pixilart.com/draw (Military symbols or little figures)
+
+------------------------------------------------------------------------
+
+MAP-DRAWING:
+	2 x 2D-Array:
+		- One char array (w=water, m=montain, l=land, f=forest)
+		- One object array (troops inside)
+
+------------------------------------------------------------------------
+
+PACKETS:
+
+| graphics |   <--->   | logic |  <--->  | state |
+
+Logic:
+	Manage troops
+	Object-array
+
+State:
+	Data inside (classes)
+
+Graphics:
+	Map
+	Functions for text overlay
+
+
+------------------------------------------------------------------------
