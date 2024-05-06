@@ -2,6 +2,7 @@ BASICS:
 	setting: military (near base game)
 	map format: CSV / TSV
 	texture making: https://www.pixilart.com/draw (Military symbols or little figures)
+	abgabe: zip-format with all files
 
 ------------------------------------------------------------------------
 
@@ -14,18 +15,31 @@ MAP-DRAWING:
 
 PACKETS:
 
-| graphics |   <--->   | logic |  <--->  | state |
+	| graphics |   <--->   | logic |  <--->  | state |
 
-Logic:
-	Manage troops
-	Object-array
-
-State:
-	Data inside (classes)
-
-Graphics:
-	Map
-	Functions for text overlay
-
++-----------------------------------------------------------------------
+|Graphics (View: Darstellung der Daten):
+|	Map
+|	Functions for text overlay
+|
+|	1/3 Aufbau FXML
+|	1/3 Logik  Java
+|       (1/3 Design CSS)
++-----------------------------------------------------------------------
+   	|
+   	| User action + update
+   	|
++-----------------------------------------------------------------------
+|Logic (Controller, Benutzerinteraktion, eher weniger Spiellogik):
+|	Manage troops
+|	Object-array
++-----------------------------------------------------------------------
+   	|
+   	| Notify + update
+   	|
++-----------------------------------------------------------------------
+|State (Model: Verwaltung der Daten, kennt keine Darstellung):
+|	Data inside (classes)
++-----------------------------------------------------------------------
 
 ------------------------------------------------------------------------

@@ -1,0 +1,12 @@
+METHODS:
+constructor(string text): make window + show Menu 			-> show map options at startup (menu Text must be given)
+public void loadMap(string fileName)					-> load chosen map after startup
+public void drawMap(2D-Array troops)					-> draw new Map after a change (includes the troops + possible positions)
+public void setText(int pos, string color, string text)			-> set text at a specific position on screen
+public void removeText(int pos)						-> delete text at a specific position
+public char getTerrain(int x, int y)					-> return the terrain at the given position
+destructor: kill window
+
+VALUES:
+2D-Array map 
+List texts

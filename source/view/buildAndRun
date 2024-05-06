@@ -1,0 +1,5 @@
+#!/bin/ksh
+
+javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls graphics.java
+
+java --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls graphics
