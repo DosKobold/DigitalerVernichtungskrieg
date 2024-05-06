@@ -1,3 +1,8 @@
+/*TODO:
+ * Tom wegen Zeitplan fragen
+ * Tom wegen Implementierung/Interface fragen
+ */
+
 //package view;
 
 import javafx.application.Application;
