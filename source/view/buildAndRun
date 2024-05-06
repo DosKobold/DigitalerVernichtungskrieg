@@ -2,4 +2,8 @@
 
 javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls graphics.java
 
-java --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls graphics
+if [ $? -eq 0 ]; then
+	java --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls graphics
+else
+	echo "[$0] ERROR: Return value of javac not 0!"
+fi
