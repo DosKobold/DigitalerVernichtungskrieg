@@ -1,0 +1,44 @@
+Basics of coordinates on the screen:        
+	0                      x
+      0 +--------------------->
+        |
+	|
+	|
+	|
+	|
+      y v
+
+1. Create Object 
+	Arguments:
+		String: Map options
+2. loadMap
+	Arguments:
+		String: Path to map (.csv)
+3. drawMap
+	Arguments:
+		2D ArrayList: Position of each troop
+		2D ArrayList: Marked fields
+		Int: X position of current troop
+		Int: Y position of current troop
+
+4. setText
+	Arguments:
+		Int: Position of text
+		String: Actual text
+		String:	Color of text
+	Info: Possible positions
+		+-----------------------+
+		|1                     2|
+		|                       |
+		|	    3           |
+		|                       |
+		|4                     5|
+		+-----------------------+
+
+5. removeText
+	Arguments:
+		Int: Position of text
+6. getTerrain
+	Arguments:
+		Int: X position of wanted Terrain
+		Int: Y position of wanted Terrain
