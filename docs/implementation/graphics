@@ -28,11 +28,11 @@ Basics of coordinates on the screen:
 		String:	Color of text
 	Info: Possible positions
 		+-----------------------+
-		|1                     2|
+		|0                     1|
 		|                       |
-		|	    3           |
+		|	    2           |
 		|                       |
-		|4                     5|
+		|3                     4|
 		+-----------------------+
 
 5. removeText
