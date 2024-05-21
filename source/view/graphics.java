@@ -1,6 +1,6 @@
 /*TODO:
- * Return 2D ArrayList of spawns at loadMap(String)
- * Troop drawing
+ * Error handling. Example: Error while loading some image
+ * 
  * Scaling with the correct ratio
  * Design, especially the placement of text output
  */
@@ -22,22 +22,36 @@ import java.util.ArrayList;
 
 public class graphics extends Application {
 	
-	int windowX = 1000;
-	int windowY =  900;
+	//Settings
+	private int windowX = 1000;
+	private int windowY =  900;
 
 	//Window objects
-	Stage primaryStage;
-	Group root = new Group();
-	Scene scene = new Scene(root,windowX,windowY,Color.RED);
-	final Canvas canvas = new Canvas(windowX,windowY);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
-
+	private Stage primaryStage;
+	private Group root = new Group();
+	private Scene scene = new Scene(root,windowX,windowY,Color.RED);
+	private final Canvas canvas = new Canvas(windowX,windowY);
+	private GraphicsContext gc = canvas.getGraphicsContext2D();
 
 	//Data
 	private ArrayList<ArrayList<Character>> map = new ArrayList<>();
 	private ArrayList<String> textStrings = new ArrayList<>();
 	private ArrayList<Paint>  textColors  = new ArrayList<>();
 
+	//Textures
+	private String imagePath = "file:../../textures/";
+	private final Image plain    		= new Image(imagePath + "map/plain.png");
+	private final Image wood     		= new Image(imagePath + "map/wood.png");
+	private final Image mountain 		= new Image(imagePath + "map/mountain.png");
+	private final Image sea      		= new Image(imagePath + "map/sea.png");
+	private final Image infantry 		= new Image(imagePath + "troops/infantry.png");
+	private final Image mechanizedInfantry  = new Image(imagePath + "troops/mechanizedInfantry.png");
+	private final Image tank 		= new Image(imagePath + "troops/tank.png");
+	private final Image mobileArtillery 	= new Image(imagePath + "troops/mobileArtillery.png");
+	private final Image antiAir		= new Image(imagePath + "troops/antiAir.png");
+	private final Image fighter 		= new Image(imagePath + "troops/fighter.png");
+	private final Image bomber 		= new Image(imagePath + "troops/bomber.png");
+	private final Image battleCopter 	= new Image(imagePath + "troops/battleCopter.png");
 
 	//Functions
 	public void graphics(String text) throws Exception {
@@ -47,13 +61,11 @@ public class graphics extends Application {
 		primaryStage.show();
 	}
 
-	//TODO: return spawn?
-	public void loadMap(String fileName) throws Exception {
-		Scanner scanner = new Scanner(new File(fileName));
-		scanner.useDelimiter(",");
+	public ArrayList<ArrayList<Character>> loadMap(String mapPath) throws Exception {
+		//1. Load map.csv into 2D-ArrayList
+		Scanner scanner = new Scanner(new File(mapPath + "/map.csv" ));
 		int lineNo = 0;
 		map.add(new ArrayList());
-		//Load map.csv into 2D-ArrayList
 		while(scanner.hasNextLine()) {
 			String line = scanner.nextLine().replaceAll(",","");
 			for (char field : line.toCharArray()) {
@@ -63,14 +75,28 @@ public class graphics extends Application {
 			map.add(new ArrayList());
 		}
 		scanner.close();
+		
+		//2. Load spawn.csv into 2D-ArrayList and return it
+		scanner = new Scanner(new File(mapPath + "/spawn.csv"));
+		lineNo = 0;
+		ArrayList<ArrayList<Character>> spawn = new ArrayList<>();
+		spawn.add(new ArrayList());
+		while(scanner.hasNextLine()) {
+			String line = scanner.nextLine().replaceAll(",","");
+			for (char field : line.toCharArray()) {
+				spawn.get(lineNo).add(field);
+				System.out.print(field);
+			}
+			System.out.print("\n");
+			lineNo++;
+			spawn.add(new ArrayList());
+		}
+		scanner.close();
+		return spawn;
 	}
 
-	public void drawMap() throws Exception {
-		//Draw background map
-		final Image plain    = new Image("file:../../textures/plain.png");
-		final Image wood     = new Image("file:../../textures/wood.png");	//FIXME: Images should be placed in class, not every time loaded
-		final Image mountain = new Image("file:../../textures/mountain.png");
-		final Image sea      = new Image("file:../../textures/sea.png");
+	public void drawMap(ArrayList<ArrayList<Character>> spawn) throws Exception {
+		//1. Draw background map
 		for (int lineNo=0; lineNo<map.size(); lineNo++) {
 			for (int fieldNo=0; fieldNo<map.get(lineNo).size(); fieldNo++) {
 				char field = map.get(lineNo).get(fieldNo);
@@ -91,12 +117,64 @@ public class graphics extends Application {
 			}
 		}
 
-		//Draw troops
-		/*TODO: implement drawing troops
-		 *	under construction
-		*/
-		
-		//Draw text
+		//2. Draw troops
+		for (int lineNo=0; lineNo<spawn.size(); lineNo++) {
+			for (int fieldNo=0; fieldNo<spawn.get(lineNo).size(); fieldNo++) {
+				char field = spawn.get(lineNo).get(fieldNo);
+				switch (field) {
+					case 'I':
+						gc.drawImage(infantry, 32*fieldNo, 32*lineNo);
+						break;
+					case 'i':
+						gc.drawImage(infantry, 32*fieldNo, 32*lineNo);
+						break;
+					case 'M':
+						gc.drawImage(mechanizedInfantry, 32*fieldNo, 32*lineNo);
+						break;
+					case 'm':
+						gc.drawImage(mechanizedInfantry, 32*fieldNo, 32*lineNo);
+						break;
+					case 'T':
+						gc.drawImage(tank, 32*fieldNo, 32*lineNo);
+						break;
+					case 't':
+						gc.drawImage(tank, 32*fieldNo, 32*lineNo);
+						break;
+					case 'D':
+						gc.drawImage(mobileArtillery, 32*fieldNo, 32*lineNo);
+						break;
+					case 'd':
+						gc.drawImage(mobileArtillery, 32*fieldNo, 32*lineNo);
+						break;
+					case 'A':
+						gc.drawImage(antiAir, 32*fieldNo, 32*lineNo);
+						break;
+					case 'a':
+						gc.drawImage(antiAir, 32*fieldNo, 32*lineNo);
+						break;
+					case 'F':
+						gc.drawImage(fighter, 32*fieldNo, 32*lineNo);
+						break;
+					case 'f':
+						gc.drawImage(fighter, 32*fieldNo, 32*lineNo);
+						break;
+					case 'B':
+						gc.drawImage(bomber, 32*fieldNo, 32*lineNo);
+						break;
+					case 'b':
+						gc.drawImage(bomber, 32*fieldNo, 32*lineNo);
+						break;
+					case 'C':
+						gc.drawImage(battleCopter, 32*fieldNo, 32*lineNo);
+						break;
+					case 'c':
+						gc.drawImage(battleCopter, 32*fieldNo, 32*lineNo);
+						break;
+				}
+			}
+		}
+
+		//3. Draw user interface
 		gc.setFont(new Font(20));
 		for (int pos=0; pos<textStrings.size(); pos++) {
 			switch (pos) {
@@ -134,16 +212,19 @@ public class graphics extends Application {
 	}
 
 	public void start(Stage primaryStage) throws Exception {
+		/* TESTING AREA
+		   -> TO BE REMOVED */
 		this.primaryStage = primaryStage;
 		graphics("THIS IS A TEXT");
-		loadMap("../../maps/17_Piston_Dam/map.csv"); //FIXME: ONLY DURING NOT IMPLEMENTED
+		ArrayList<ArrayList<Character>> spawn = new ArrayList<>();
+		spawn = loadMap("../../maps/01_Little_Island");
 		
 		setText(0, "THIS IS A TEST", Color.BLACK);
 		setText(1, "THIS IS A TEST", Color.BLACK);
 		setText(2, "THIS IS A TEST", Color.BLACK);
 		setText(3, "THIS IS A TEST", Color.BLACK);
 		setText(4, "THIS IS A TEST", Color.BLACK);
-		drawMap();
+		drawMap(spawn);
 	}
 
 	public static void main (String[] args) {
