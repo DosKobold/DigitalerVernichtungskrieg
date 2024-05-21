@@ -8,6 +8,23 @@ Basics of coordinates on the screen:
 	|
       y v
 
+Map character conventions:
+	Map:
+		S : Sea
+		P : Plain
+		W : Wood
+		M : Mountain
+	Spawn:
+		Blue / Red
+		I / i: Infantry
+		M / m: Mechanized Infantry
+		T / t: Tank
+		D / d: Mobile Artillery
+		A / a: Anti-Air
+		F / f: Fighter
+		B / b: Bomber
+		C / c: Battle Copter
+
 1. Create Object 
 	Arguments:
 		String: Map options
