@@ -1,12 +1,10 @@
 #!/bin/ksh
 
-filename="graphics"
-
-javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml $filename.java OutputController.java
+javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml Graphics.java OutputController.java Data.java Field.java Texture.java
 
 if [ $? -eq 0 ]; then
 	echo "[$0] INFO: Succesfully compiled!"
-	java -classpath ../ --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml "view.$filename"
+	java -classpath ../ --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml "view.Graphics"
 else
 	echo "[$0] ERROR: Return value of javac not 0!"
 fi
