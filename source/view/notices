@@ -1,2 +1,10 @@
-- get a scenebuilder for graphical editing
-- get javafx
+Structure:
+
+	Controller gives data to view (output) / gets data back (input)
+	Screen will be refreshed in the case of a data change (output)
+
+public graphics: interaction and run application: setTroops(), getMap() ...
+private data: real implementation: setTroops(), getMap ... every field in a seperate object
+private field: background, troop, marked?
+private OutputController: real implementation: drawMap()
+private InputController: real implementation: getInput()...
