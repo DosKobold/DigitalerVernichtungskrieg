@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class Texture {
 
-	//Textures
 	private String imagePath = "file:../../textures/";
 	private final Image plain    		= new Image(imagePath + "map/plain.png");
 	private final Image wood     		= new Image(imagePath + "map/wood.png");

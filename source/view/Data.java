@@ -71,4 +71,8 @@ public class Data {
 	public void remText(int pos) {
 		texts[pos] = null;
 	}
+	
+	public String[] getText() {
+		return texts;
+	}
 }

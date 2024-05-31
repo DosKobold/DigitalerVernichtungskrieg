@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml Graphics.java OutputController.java Data.java Field.java Texture.java
+javac --module-path ../../lib/javafx-sdk-22.0.1 --add-modules javafx.controls,javafx.fxml Graphics.java OutputController.java Data.java Field.java Texture.java ResizableCanvas.java
 
 if [ $? -eq 0 ]; then
 	echo "[$0] INFO: Succesfully compiled!"

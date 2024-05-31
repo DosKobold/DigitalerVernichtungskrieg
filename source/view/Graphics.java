@@ -26,6 +26,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Graphics extends Application {
+	
 
 	private Data data = new Data();
 	private Texture texture = new Texture();
@@ -61,25 +62,43 @@ public class Graphics extends Application {
 	public void setText(int pos, String text) {
 		data.remText(pos);
 		data.setText(pos, text);
+		oc.drawText(data.getText());
 	}
 
 	public void setField(int xPos, int yPos, char troop, boolean choosen, boolean marked) {
-		
+		Field field = fields.get(yPos).get(xPos);
+		field.setForeground(texture.getTroopImage(troop));
+		field.choosenStatus(choosen);
+		field.markedStatus(marked);
+		oc.drawField(xPos, yPos, fields.get(0).size(), fields.size(), field.getBackground());
+		oc.drawField(xPos, yPos, fields.get(0).size(), fields.size(), field.getForeground());
+		if (field.isChoosen())
+			oc.markAsChoosen(xPos, yPos);
+		else if (field.isMarked())
+			oc.markAsMarked(xPos, yPos);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("prototype2.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 		loader.setController(oc);
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 
+		oc.initialize();
+	
 		primaryStage.setTitle("DigitalerVernichtungskrieg");
+		primaryStage.setMinHeight(600);
+		primaryStage.setMinWidth(1000);
+		//primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 		/* TESTING AREA : TO BE REMOVED */
 		loadMap("../../maps/01_Little_Island");
+		setText(0, "This is text\nnumber 0");
+		setText(1, "This is text\nnumber 1");
+		setText(2, "This is text\nnumber 2");
 		/* END OF TESTING AREA 		*/
 	}
 
@@ -91,8 +110,8 @@ public class Graphics extends Application {
 		for (int lineNo=0; lineNo<fields.size(); lineNo++) {
 			for (int fieldNo=0; fieldNo<fields.get(lineNo).size(); fieldNo++) {
 				Field field = fields.get(lineNo).get(fieldNo);
-				oc.drawField(fieldNo, lineNo, field.getBackground());
-				oc.drawField(fieldNo, lineNo, field.getForeground());
+				oc.drawField(fieldNo, lineNo, fields.get(0).size(), fields.size(), field.getBackground());
+				oc.drawField(fieldNo, lineNo, fields.get(0).size(), fields.size(), field.getForeground());
 				if (field.isChoosen())
 					oc.markAsChoosen(fieldNo, lineNo);
 				if (field.isMarked())
