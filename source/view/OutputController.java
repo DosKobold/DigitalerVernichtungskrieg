@@ -17,68 +17,69 @@ import java.util.ArrayList;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OutputController implements Initializable {
+public class OutputController {
 
 	@FXML
 	private StackPane stackPane1;
-	@FXML
-	private Canvas canvas;
-	private GraphicsContext gc;
 	@FXML
 	private Text text0;
 	@FXML
 	private Text text1;
 	@FXML
 	private Text text2;
+	
+	private ResizableCanvas canvas;
+	private GraphicsContext gc;
+	private ArrayList<ArrayList<ArrayList<Image>>> frameBuffer;
 
-
-	@FXML
 	public void initialize() {
+		canvas = new ResizableCanvas();
+		stackPane1.getChildren().add(canvas);
 		gc = canvas.getGraphicsContext2D();
-		ResizableCanvas resCanvas = new ResizableCanvas();
-		stackPane1.getChildren().add(resCanvas);
-		GraphicsContext gc2 = resCanvas.getGraphicsContext2D();
-		resCanvas.widthProperty().bind(stackPane1.widthProperty());
-		resCanvas.heightProperty().bind(stackPane1.heightProperty());
-		stackPane1.widthProperty().addListener((obs, oldVal,newVal) -> {
-			double width = stackPane1.getWidth();
-			double height = stackPane1.getHeight();
-			//resCanvas.setWidth(width);
-			//resCanvas.setHeight(height);
-			gc2.clearRect(0, 0, width, height);
-			gc2.setStroke(Color.RED);
-			gc2.strokeLine(0, 0, width, height);
-			gc2.strokeLine(0, height, width, 0);
-		});
+		canvas.widthProperty().bind(stackPane1.widthProperty());
+		canvas.heightProperty().bind(stackPane1.heightProperty());
+		stackPane1.widthProperty().addListener((obs, oldVal,newVal) -> draw(frameBuffer));
+		stackPane1.heightProperty().addListener((obs, oldVal,newVal) -> draw(frameBuffer));
 	}
 
-	@FXML
-	public void drawField(int xPos, int yPos, int xMax, int yMax, Image image) {
-		gc = canvas.getGraphicsContext2D();
-		gc.drawImage(image, (canvas.getWidth()/xMax)*xPos, (canvas.getHeight()/yMax)*yPos, canvas.getWidth()/xMax, canvas.getHeight()/yMax);
+	public void draw(ArrayList<ArrayList<ArrayList<Image>>> frame) {
+		System.out.println("Platzhalter für Fenstergröße");
+		frameBuffer = frame;
+
+		final int xMax = frame.get(0).get(0).size();
+		final int yMax = frame.get(0).size();
+		final double width = canvas.getWidth();
+		final double height = canvas.getHeight();
+
+		final double size;
+		double xMargin = 0;
+		double yMargin = 0;
+
+		if ((width/xMax) < (height/yMax)) {
+			size = width/xMax;
+			yMargin = (height-(yMax*size))/2;
+		} else {
+			size = height/yMax;
+			xMargin = (width-(xMax*size))/2;
+		}
+
+		gc.clearRect(0, 0, width, height);
+		for (int layerNo=0; layerNo<frame.size(); layerNo++) {
+			for (int lineNo=0;lineNo<frame.get(layerNo).size(); lineNo++) {
+				for (int fieldNo=0; fieldNo<frame.get(layerNo).get(lineNo).size(); fieldNo++) {
+					final int xPos = fieldNo;
+					final int yPos = lineNo;
+					Image image = frame.get(layerNo).get(lineNo).get(fieldNo);
+					gc.drawImage(image, xPos*size+xMargin, yPos*size+yMargin, size, size);
+				}
+			}
+		}
 	}
 	
-	public void markAsChoosen(int xPos, int yPos) {
-		// TODO
-	}
-
-	public void markAsMarked(int xPos, int yPos) {
-		// TODO
-	}
-
-	@FXML
 	public void drawText(String[] texts) {
 		text0.setText(texts[0]);
 		text1.setText(texts[1]);
 		text2.setText(texts[2]);
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		/*canvas = Canvas.getInstance();
-		canvas = this.canvas;
-		gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.RED);
-		gc.fillRect(1.0, 1.0, 80.0, 80.0);*/
-	}
 }

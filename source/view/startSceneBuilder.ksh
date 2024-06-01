@@ -1,1 +1,0 @@
-/opt/scenebuilder/bin/SceneBuilder

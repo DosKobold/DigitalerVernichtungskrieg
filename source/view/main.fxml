@@ -4,24 +4,34 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane fx:id="stackPane0" prefHeight="84.0" prefWidth="1000.0">
+      <StackPane fx:id="stackPane0" prefHeight="103.0" prefWidth="1000.0">
          <children>
-            <Text fx:id="text0" fill="#c3c3c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="CENTER" wrappingWidth="247.13000106811523" StackPane.alignment="CENTER" />
-            <Text fx:id="text1" fill="#c3c3c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" wrappingWidth="157.13000106811523" StackPane.alignment="CENTER_LEFT">
+            <Text fx:id="text0" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" wrappingWidth="157.13000106811523" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets left="30.0" />
-               </StackPane.margin></Text>
-            <Text fx:id="text2" fill="#c3c3c3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="RIGHT" wrappingWidth="170.13000106811523" StackPane.alignment="CENTER_RIGHT">
+               </StackPane.margin>
+               <font>
+                  <Font name="Classic Console" size="35.0" />
+               </font></Text>
+            <Text fx:id="text1" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="CENTER" wrappingWidth="247.13000106811523" StackPane.alignment="CENTER">
+               <font>
+                  <Font name="Classic Console" size="35.0" />
+               </font></Text>
+            <Text fx:id="text2" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="RIGHT" wrappingWidth="170.13000106811523" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets right="30.0" />
-               </StackPane.margin></Text>
+               </StackPane.margin>
+               <font>
+                  <Font name="Classic Console" size="35.0" />
+               </font></Text>
          </children>
       </StackPane>
-      <StackPane fx:id="stackPane1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="548.0" prefWidth="1000.0">
+      <StackPane fx:id="stackPane1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
             <Canvas fx:id="canvas" height="404.0" width="866.0" StackPane.alignment="CENTER">
                <StackPane.margin>

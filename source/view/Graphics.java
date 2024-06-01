@@ -32,22 +32,10 @@ public class Graphics extends Application {
 	private Texture texture = new Texture();
 	private OutputController oc = new OutputController();
 	
-	private ArrayList<ArrayList<Field>> fields = new ArrayList<>();
-
 	public void loadMap(String mapPath) throws Exception {
 		data.loadMap(mapPath);
 		data.loadSpawn(mapPath);
-		
-		ArrayList<ArrayList<Character>> map   = getMap();
-		ArrayList<ArrayList<Character>> spawn = getSpawn();
-		for (int lineNo=0; lineNo<map.size(); lineNo++) {
-			fields.add(new ArrayList());
-			for (int fieldNo=0; fieldNo<map.get(lineNo).size(); fieldNo++) {
-				fields.get(lineNo).add(new Field());
-				fields.get(lineNo).get(fieldNo).setBackground(texture.getMapImage(map.get(lineNo).get(fieldNo)));
-				fields.get(lineNo).get(fieldNo).setForeground(texture.getTroopImage(spawn.get(lineNo).get(fieldNo)));
-			}
-		}
+		data.setTroops(data.getSpawn());
 		drawOnScreen();
 	}
 
@@ -65,17 +53,11 @@ public class Graphics extends Application {
 		oc.drawText(data.getText());
 	}
 
-	public void setField(int xPos, int yPos, char troop, boolean choosen, boolean marked) {
-		Field field = fields.get(yPos).get(xPos);
-		field.setForeground(texture.getTroopImage(troop));
-		field.choosenStatus(choosen);
-		field.markedStatus(marked);
-		oc.drawField(xPos, yPos, fields.get(0).size(), fields.size(), field.getBackground());
-		oc.drawField(xPos, yPos, fields.get(0).size(), fields.size(), field.getForeground());
-		if (field.isChoosen())
-			oc.markAsChoosen(xPos, yPos);
-		else if (field.isMarked())
-			oc.markAsMarked(xPos, yPos);
+	public void setMap(ArrayList<ArrayList<Character>> troops, ArrayList<ArrayList<Character>> choosen, ArrayList<ArrayList<Character>> marked) {
+		data.setTroops(troops);
+		data.setChoosen(choosen);
+		data.setMarked(marked);
+		drawOnScreen();
 	}
 
 	@Override
@@ -107,17 +89,38 @@ public class Graphics extends Application {
 	}
 
 	private void drawOnScreen() {
-		for (int lineNo=0; lineNo<fields.size(); lineNo++) {
-			for (int fieldNo=0; fieldNo<fields.get(lineNo).size(); fieldNo++) {
-				Field field = fields.get(lineNo).get(fieldNo);
-				oc.drawField(fieldNo, lineNo, fields.get(0).size(), fields.size(), field.getBackground());
-				oc.drawField(fieldNo, lineNo, fields.get(0).size(), fields.size(), field.getForeground());
-				if (field.isChoosen())
-					oc.markAsChoosen(fieldNo, lineNo);
-				if (field.isMarked())
-					oc.markAsMarked(fieldNo, lineNo);
+		ArrayList<ArrayList<Character>> mapChar     = data.getMap();
+		ArrayList<ArrayList<Character>> troopsChar  = data.getTroops();
+		ArrayList<ArrayList<Character>> choosenChar = data.getChoosen();
+		ArrayList<ArrayList<Character>> markedChar  = data.getMarked();
+
+		ArrayList<ArrayList<Image>> mapImg     = new ArrayList<>();
+		ArrayList<ArrayList<Image>> troopsImg  = new ArrayList<>();
+		ArrayList<ArrayList<Image>> choosenImg = new ArrayList<>();
+		ArrayList<ArrayList<Image>> markedImg  = new ArrayList<>();
+
+		ArrayList<ArrayList<ArrayList<Image>>> frame = new ArrayList<>();
+
+		for (int lineNo=0; lineNo<mapChar.size(); lineNo++) {
+			mapImg.add(new ArrayList());
+			troopsImg.add(new ArrayList());
+			choosenImg.add(new ArrayList());
+			markedImg.add(new ArrayList());
+			for (int fieldNo=0; fieldNo<mapChar.get(lineNo).size(); fieldNo++) {
+				mapImg.get(lineNo).add(texture.getMapImage(mapChar.get(lineNo).get(fieldNo)));
+				troopsImg.get(lineNo).add(texture.getTroopImage(troopsChar.get(lineNo).get(fieldNo)));
+				//choosenImg.get(lineNo).add(texture.getMapImage(choosenChar.get(lineNo).get(fieldNo)));
+				//markedImg.get(lineNo).add(texture.getMapImage(markedChar.get(lineNo).get(fieldNo)));
 			}
 		}
+		frame.add(mapImg);
+		frame.add(troopsImg);
+		frame.add(choosenImg);
+		frame.add(markedImg);
+		oc.draw(frame);
+	}
+	
+	private void toImage() {
 
 	}
 }
