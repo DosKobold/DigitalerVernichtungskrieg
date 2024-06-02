@@ -20,6 +20,8 @@ import javafx.scene.paint.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
 import javafx.scene.text.Font;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 import javafx.fxml.*;
 import java.io.*;
 import java.util.Scanner;
@@ -27,10 +29,11 @@ import java.util.ArrayList;
 
 public class Graphics extends Application {
 	
-
 	private Data data = new Data();
 	private Texture texture = new Texture();
 	private OutputController oc = new OutputController();
+
+	private KeyCode keyCode;
 	
 	public void loadMap(String mapPath) throws Exception {
 		data.loadMap(mapPath);
@@ -60,6 +63,19 @@ public class Graphics extends Application {
 		drawOnScreen();
 	}
 
+	private synchronized void setKey(KeyEvent keyEvent) {
+		keyCode = keyEvent.getCode();
+		System.out.println("[view] Key \"" + keyCode.getName() + "\" was pressed");
+		notifyAll();
+	}
+
+	public synchronized KeyCode getKey() throws Exception {
+		wait();
+		KeyCode keyCode = this.keyCode;
+		this.keyCode = null;
+		return keyCode;
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
@@ -75,6 +91,8 @@ public class Graphics extends Application {
 		//primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {setKey(keyEvent);});
 
 		/* TESTING AREA : TO BE REMOVED */
 		loadMap("../../maps/01_Little_Island");
@@ -109,8 +127,10 @@ public class Graphics extends Application {
 			for (int fieldNo=0; fieldNo<mapChar.get(lineNo).size(); fieldNo++) {
 				mapImg.get(lineNo).add(texture.getMapImage(mapChar.get(lineNo).get(fieldNo)));
 				troopsImg.get(lineNo).add(texture.getTroopImage(troopsChar.get(lineNo).get(fieldNo)));
-				//choosenImg.get(lineNo).add(texture.getMapImage(choosenChar.get(lineNo).get(fieldNo)));
-				//markedImg.get(lineNo).add(texture.getMapImage(markedChar.get(lineNo).get(fieldNo)));
+				if (!choosenChar.isEmpty())
+					choosenImg.get(lineNo).add(texture.getChoosenImage(choosenChar.get(lineNo).get(fieldNo)));
+				if (!markedChar.isEmpty())
+					markedImg.get(lineNo).add(texture.getMarkedImage(markedChar.get(lineNo).get(fieldNo)));
 			}
 		}
 		frame.add(mapImg);
@@ -118,10 +138,6 @@ public class Graphics extends Application {
 		frame.add(choosenImg);
 		frame.add(markedImg);
 		oc.draw(frame);
-	}
-	
-	private void toImage() {
-
 	}
 }
 

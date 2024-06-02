@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.*;
 import javafx.scene.canvas.*;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
 public class OutputController {
 
 	@FXML
+	private VBox vBox;
+	@FXML
 	private StackPane stackPane1;
 	@FXML
 	private Text text0;
@@ -27,7 +30,7 @@ public class OutputController {
 	private Text text1;
 	@FXML
 	private Text text2;
-	
+
 	private ResizableCanvas canvas;
 	private GraphicsContext gc;
 	private ArrayList<ArrayList<ArrayList<Image>>> frameBuffer;
@@ -43,11 +46,19 @@ public class OutputController {
 	}
 
 	public void draw(ArrayList<ArrayList<ArrayList<Image>>> frame) {
-		System.out.println("Platzhalter für Fenstergröße");
+		/* The listeners call this method before there is anything saved in the frame buffer.
+		 * This leads to a null pointer exception. The following if-clause is needed.
+		 */
+
+		if (frame == null)
+			return;
+
+		System.out.println("[view] Stage dimensions: "
+			+ vBox.getWidth() + " x "  + vBox.getHeight());
 		frameBuffer = frame;
 
-		final int xMax = frame.get(0).get(0).size();
-		final int yMax = frame.get(0).size();
+		final int xMax = frame.get(1).get(1).size();
+		final int yMax = frame.get(1).size();
 		final double width = canvas.getWidth();
 		final double height = canvas.getHeight();
 
@@ -65,7 +76,7 @@ public class OutputController {
 
 		gc.clearRect(0, 0, width, height);
 		for (int layerNo=0; layerNo<frame.size(); layerNo++) {
-			for (int lineNo=0;lineNo<frame.get(layerNo).size(); lineNo++) {
+			for (int lineNo=0; lineNo<frame.get(layerNo).size(); lineNo++) {
 				for (int fieldNo=0; fieldNo<frame.get(layerNo).get(lineNo).size(); fieldNo++) {
 					final int xPos = fieldNo;
 					final int yPos = lineNo;
@@ -81,5 +92,4 @@ public class OutputController {
 		text1.setText(texts[1]);
 		text2.setText(texts[2]);
 	}
-
 }

@@ -9,6 +9,7 @@ import javafx.scene.paint.*;
 import javafx.scene.canvas.*;
 import javafx.scene.image.*;
 import javafx.scene.text.Font;
+import javafx.scene.input.KeyEvent;
 import javafx.fxml.*;
 import java.io.*;
 import java.util.Scanner;
