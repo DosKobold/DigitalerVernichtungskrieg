@@ -1,22 +1,13 @@
 package view;
 
-import javafx.application.Application;
-import javafx.scene.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.text.Font;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.fxml.*;
-import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class OutputController {
 
@@ -41,24 +32,29 @@ public class OutputController {
 		gc = canvas.getGraphicsContext2D();
 		canvas.widthProperty().bind(stackPane1.widthProperty());
 		canvas.heightProperty().bind(stackPane1.heightProperty());
-		stackPane1.widthProperty().addListener((obs, oldVal,newVal) -> draw(frameBuffer));
-		stackPane1.heightProperty().addListener((obs, oldVal,newVal) -> draw(frameBuffer));
+		stackPane1.widthProperty().addListener((obs, oldVal,newVal) -> refreshScreen());
+		stackPane1.heightProperty().addListener((obs, oldVal,newVal) -> refreshScreen());
+	}
+
+	private void refreshScreen() {
+			System.out.println("[view] Changed screen size. New stage dimensions: "
+				+ vBox.getWidth() + " x "  + vBox.getHeight());
+			draw(frameBuffer);
 	}
 
 	public void draw(ArrayList<ArrayList<ArrayList<Image>>> frame) {
 		/* The listeners call this method before there is anything saved in the frame buffer.
 		 * This leads to a null pointer exception. The following if-clause is needed.
 		 */
+		System.out.println("[view] Drawing map to screen");
 
 		if (frame == null)
 			return;
 
-		System.out.println("[view] Stage dimensions: "
-			+ vBox.getWidth() + " x "  + vBox.getHeight());
 		frameBuffer = frame;
 
-		final int xMax = frame.get(1).get(1).size();
-		final int yMax = frame.get(1).size();
+		final int xMax = frame.get(0).get(0).size();
+		final int yMax = frame.get(0).size();
 		final double width = canvas.getWidth();
 		final double height = canvas.getHeight();
 
@@ -88,6 +84,16 @@ public class OutputController {
 	}
 	
 	public void drawText(String[] texts) {
+		System.out.println("[view] Writing following text to screen:");
+		for (int i=0; i<texts.length; i++) {
+			String text = texts[i];
+			if (text != null)
+				text = text.replaceAll("\n", "\n\t   ");
+			else
+				text = "";
+			System.out.println("\t" + i + ": " + text);
+		}
+
 		text0.setText(texts[0]);
 		text1.setText(texts[1]);
 		text2.setText(texts[2]);

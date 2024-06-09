@@ -1,18 +1,6 @@
 package view;
 
-import javafx.application.Application;
-import javafx.scene.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.text.Font;
-import javafx.fxml.*;
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
+import javafx.scene.canvas.Canvas;
 
 public class ResizableCanvas extends Canvas {
 

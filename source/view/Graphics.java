@@ -12,25 +12,20 @@
 package view;
 
 import javafx.application.Application;
-import javafx.scene.*;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.text.Font;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
-import javafx.fxml.*;
-import java.io.*;
-import java.util.Scanner;
+import javafx.fxml.FXMLLoader;
 import java.util.ArrayList;
 
 public class Graphics extends Application {
 	
-	private Data data = new Data();
-	private Texture texture = new Texture();
+	private Data data 	    = new Data();
+	private Texture texture	    = new Texture();
+	private InputController ic  = new InputController();
 	private OutputController oc = new OutputController();
 
 	private KeyCode keyCode;
@@ -63,21 +58,14 @@ public class Graphics extends Application {
 		drawOnScreen();
 	}
 
-	private synchronized void setKey(KeyEvent keyEvent) {
-		keyCode = keyEvent.getCode();
-		System.out.println("[view] Key \"" + keyCode.getName() + "\" was pressed");
-		notifyAll();
-	}
-
-	public synchronized KeyCode getKey() throws Exception {
-		wait();
-		KeyCode keyCode = this.keyCode;
-		this.keyCode = null;
-		return keyCode;
+	public KeyCode waitForKey() throws Exception {
+		return ic.getKey();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		System.out.println("[view] Starting graphical application");
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 		loader.setController(oc);
 		Parent root = loader.load();
@@ -92,7 +80,7 @@ public class Graphics extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {setKey(keyEvent);});
+		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
 
 		/* TESTING AREA : TO BE REMOVED */
 		loadMap("../../maps/01_Little_Island");
@@ -120,10 +108,10 @@ public class Graphics extends Application {
 		ArrayList<ArrayList<ArrayList<Image>>> frame = new ArrayList<>();
 
 		for (int lineNo=0; lineNo<mapChar.size(); lineNo++) {
-			mapImg.add(new ArrayList());
-			troopsImg.add(new ArrayList());
-			choosenImg.add(new ArrayList());
-			markedImg.add(new ArrayList());
+			mapImg.add(new ArrayList<Image>());
+			troopsImg.add(new ArrayList<Image>());
+			choosenImg.add(new ArrayList<Image>());
+			markedImg.add(new ArrayList<Image>());
 			for (int fieldNo=0; fieldNo<mapChar.get(lineNo).size(); fieldNo++) {
 				mapImg.get(lineNo).add(texture.getMapImage(mapChar.get(lineNo).get(fieldNo)));
 				troopsImg.get(lineNo).add(texture.getTroopImage(troopsChar.get(lineNo).get(fieldNo)));

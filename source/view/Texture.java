@@ -1,41 +1,51 @@
 package view;
 
-import javafx.application.Application;
-import javafx.scene.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.text.Font;
-import javafx.fxml.*;
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.scene.image.Image;
 
 public class Texture {
 
-	private String imagePath = "file:../../textures/";
-	private final Image plain    		= new Image(imagePath + "map/plain.png");
-	private final Image wood     		= new Image(imagePath + "map/wood.png");
-	private final Image mountain 		= new Image(imagePath + "map/mountain.png");
-	private final Image sea      		= new Image(imagePath + "map/sea.png");
+	private final String imagePath = "file:../../textures/";
+	private final String errorPath = imagePath + "error.png";
 
-	private final Image infantry 		= new Image(imagePath + "troops/infantry.png");
-	private final Image mechanizedInfantry  = new Image(imagePath + "troops/mechanizedInfantry.png");
-	private final Image tank 		= new Image(imagePath + "troops/tank.png");
-	private final Image mobileArtillery 	= new Image(imagePath + "troops/mobileArtillery.png");
-	private final Image antiAir		= new Image(imagePath + "troops/antiAir.png");
-	private final Image fighter 		= new Image(imagePath + "troops/fighter.png");
-	private final Image bomber 		= new Image(imagePath + "troops/bomber.png");
-	private final Image battleCopter 	= new Image(imagePath + "troops/battleCopter.png");
+	private final Image plain    			= loadTexture(imagePath + "map/plain.png");
+	private final Image wood     			= loadTexture(imagePath + "map/wood.png");
+	private final Image mountain 			= loadTexture(imagePath + "map/mountain.png");
+	private final Image sea      			= loadTexture(imagePath + "map/sea.png");
 
-	private final Image choosen		= new Image(imagePath + "choosen.png");
+	private final Image redInfantry 		= loadTexture(imagePath + "troops/red/infantry.png");
+	private final Image redMechanizedInfantry  	= loadTexture(imagePath + "troops/red/mechanizedInfantry.png");
+	private final Image redTank 			= loadTexture(imagePath + "troops/red/tank.png");
+	private final Image redMobileArtillery	 	= loadTexture(imagePath + "troops/red/mobileArtillery.png");
+	private final Image redAntiAir			= loadTexture(imagePath + "troops/red/antiAir.png");
+	private final Image redFighter 			= loadTexture(imagePath + "troops/red/fighter.png");
+	private final Image redBomber 			= loadTexture(imagePath + "troops/red/bomber.png");
+	private final Image redBattleCopter 		= loadTexture(imagePath + "troops/red/battleCopter.png");
 
-	private final Image marked		= new Image(imagePath + "marked.png");
+	private final Image blueInfantry 		= loadTexture(imagePath + "troops/blue/infantry.png");
+	private final Image blueMechanizedInfantry  	= loadTexture(imagePath + "troops/blue/mechanizedInfantry.png");
+	private final Image blueTank 			= loadTexture(imagePath + "troops/blue/tank.png");
+	private final Image blueMobileArtillery 	= loadTexture(imagePath + "troops/blue/mobileArtillery.png");
+	private final Image blueAntiAir			= loadTexture(imagePath + "troops/blue/antiAir.png");
+	private final Image blueFighter 		= loadTexture(imagePath + "troops/blue/fighter.png");
+	private final Image blueBomber 			= loadTexture(imagePath + "troops/blue/bomber.png");
+	private final Image blueBattleCopter 		= loadTexture(imagePath + "troops/blue/battleCopter.png");
+
+	private final Image choosen			= loadTexture(imagePath + "choosen.png");
+
+	private final Image marked			= loadTexture(imagePath + "marked.png");
+
+
+	private Image loadTexture(String path) {
+		Image texture = new Image(path);
+		if (texture.isError()) {
+			System.err.println("[view] WARNING: Cannot find the following image: " + path);
+			texture = new Image("file:../../textures/error.png");
+			if (texture.isError() && !(path == errorPath)) {
+				System.err.println("[view] WARNING: Cannot find the following image: " + errorPath);
+			}
+		}
+		return texture;
+	}
 
 	public Image getMapImage(char field) {
 		switch (field) {
@@ -48,8 +58,8 @@ public class Texture {
 			case 'S':
 				return sea;
 			default:
-				System.out.print("ERROR: Cannot load texture for following map-field: " + field);
-		return null;
+				System.out.println("[view] WARNING: Cannot find texture for following map-field: " + field);
+		return loadTexture(errorPath);
 		}
 	}
 
@@ -58,40 +68,40 @@ public class Texture {
 			case '_':
 				return null;
 			case 'I':
-				return infantry;
+				return redInfantry;
 			case 'i':
-				return infantry;
+				return blueInfantry;
 			case 'M':
-				return mechanizedInfantry;
+				return redMechanizedInfantry;
 			case 'm':
-				return mechanizedInfantry;
+				return blueMechanizedInfantry;
 			case 'T':
-				return tank;
+				return redTank;
 			case 't':
-				return tank;
+				return blueTank;
 			case 'D':
-				return mobileArtillery;
+				return redMobileArtillery;
 			case 'd':
-				return mobileArtillery;
+				return blueMobileArtillery;
 			case 'A':
-				return antiAir;
+				return redAntiAir;
 			case 'a':
-				return antiAir;
+				return blueAntiAir;
 			case 'F':
-				return fighter;
+				return redFighter;
 			case 'f':
-				return fighter;
+				return blueFighter;
 			case 'B':
-				return bomber;
+				return redBomber;
 			case 'b':
-				return bomber;
+				return blueBomber;
 			case 'C':
-				return battleCopter;
+				return redBattleCopter;
 			case 'c':
-				return battleCopter;
+				return blueBattleCopter;
 			default:
-				System.out.print("ERROR: Cannot load texture for following troop-field: " + field);
-		return null;
+				System.out.println("[view] WARNING: Cannot find texture for following troop-field: " + field);
+		return loadTexture(errorPath);
 		}
 	}
 
@@ -102,9 +112,9 @@ public class Texture {
 			case 'X':
 				return choosen;
 			default:
-				System.out.print("ERROR: Cannot load texture for following choosen field: " + field);
+				System.out.println("[view] WARNING: Cannot find texture for following choosen field: " + field);
 		}
-		return null;
+		return loadTexture(errorPath);
 	}
 
 	public Image getMarkedImage(char field) {
@@ -114,8 +124,8 @@ public class Texture {
 			case 'X':
 				return marked;
 			default:
-				System.out.println("ERROR: Cannot load texture for following marked field: " + field);
+				System.out.println("ERROR: Cannot find texture for following marked field: " + field);
 		}
-		return null;
+		return loadTexture(errorPath);
 	}
 }

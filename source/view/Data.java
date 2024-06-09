@@ -1,21 +1,8 @@
 package view;
 
-import javafx.application.Application;
-import javafx.scene.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.*;
-import javafx.scene.canvas.*;
-import javafx.scene.image.*;
-import javafx.scene.text.Font;
-import javafx.scene.input.KeyEvent;
-import javafx.fxml.*;
-import java.io.*;
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Data {
 
@@ -90,7 +77,7 @@ public class Data {
 		int lineNo = 0;
 		while(scanner.hasNextLine()) {
 			System.out.print("\t");
-			list.add(new ArrayList());
+			list.add(new ArrayList<Character>());
 			String line = scanner.nextLine().replaceAll(",","");
 			for (char field : line.toCharArray()) {
 				list.get(lineNo).add(field);
