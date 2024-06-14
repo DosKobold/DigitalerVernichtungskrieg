@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 
 public class Texture {
 
-	private final String imagePath = "file:../../textures/";
-	private final String errorPath = imagePath + "error.png";
+	private final String imagePath   = "file:../../textures/";
+	private final String mapError    = imagePath + "map/error.png";
+	private final String troopError  = imagePath + "troops/error.png";
+	private final String markedError = imagePath + "marker/error.png";
 
 	private final Image plain    			= loadTexture(imagePath + "map/plain.png");
 	private final Image wood     			= loadTexture(imagePath + "map/wood.png");
@@ -30,18 +32,30 @@ public class Texture {
 	private final Image blueBomber 			= loadTexture(imagePath + "troops/blue/bomber.png");
 	private final Image blueBattleCopter 		= loadTexture(imagePath + "troops/blue/battleCopter.png");
 
-	private final Image choosen			= loadTexture(imagePath + "choosen.png");
+	private final Image choosen			= loadTexture(imagePath + "marker/choosen.png");
 
-	private final Image marked			= loadTexture(imagePath + "marked.png");
+	private final Image marked			= loadTexture(imagePath + "marker/marked.png");
 
 
 	private Image loadTexture(String path) {
 		Image texture = new Image(path);
 		if (texture.isError()) {
 			System.err.println("[view] WARNING: Cannot find the following image: " + path);
-			texture = new Image("file:../../textures/error.png");
-			if (texture.isError() && !(path == errorPath)) {
-				System.err.println("[view] WARNING: Cannot find the following image: " + errorPath);
+			if (path.contains("map/")) {
+				texture = new Image(mapError);
+				if (texture.isError() && !(path == mapError)) {
+					System.err.println("[view] WARNING: Cannot find the following image: " + mapError);
+				}
+			} else if (path.contains("troops/")) {
+				texture = new Image(troopError);
+				if (texture.isError() && !(path == troopError)) {
+					System.err.println("[view] WARNING: Cannot find the following image: " + troopError);
+				}
+			} else if (path.contains("marker/")) {
+				texture = new Image(markedError);
+				if (texture.isError() && !(path == markedError)) {
+					System.err.println("[view] WARNING: Cannot find the following image: " + markedError);
+				}
 			}
 		}
 		return texture;
@@ -59,7 +73,7 @@ public class Texture {
 				return sea;
 			default:
 				System.out.println("[view] WARNING: Cannot find texture for following map-field: " + field);
-		return loadTexture(errorPath);
+		return loadTexture(mapError);
 		}
 	}
 
@@ -101,7 +115,7 @@ public class Texture {
 				return blueBattleCopter;
 			default:
 				System.out.println("[view] WARNING: Cannot find texture for following troop-field: " + field);
-		return loadTexture(errorPath);
+		return loadTexture(troopError);
 		}
 	}
 
@@ -114,7 +128,7 @@ public class Texture {
 			default:
 				System.out.println("[view] WARNING: Cannot find texture for following choosen field: " + field);
 		}
-		return loadTexture(errorPath);
+		return loadTexture(markedError);
 	}
 
 	public Image getMarkedImage(char field) {
@@ -126,6 +140,6 @@ public class Texture {
 			default:
 				System.out.println("ERROR: Cannot find texture for following marked field: " + field);
 		}
-		return loadTexture(errorPath);
+		return loadTexture(markedError);
 	}
 }

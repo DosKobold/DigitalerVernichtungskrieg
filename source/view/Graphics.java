@@ -1,14 +1,3 @@
-/*TODO:
- * Scaling with the correct ratio
- * 	-> Squares needed, maybe alltime border
- * Good UI (with good text placement)
- * Print marked fields (new argument in drawMap())
- * Console output
- * Input control (new method, which waits for input)
- * Better structure
- * Error handling. Example: Error while loading some image
- */
-
 package view;
 
 import javafx.application.Application;
