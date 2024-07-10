@@ -9,16 +9,34 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.fxml.FXMLLoader;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class Graphics extends Application {
+
+	public static final CountDownLatch latch = new CountDownLatch(1);
+	public static Graphics graphics = null;
 	
-	private Data data 	    = new Data();
-	private Texture texture	    = new Texture();
-	private InputController ic  = new InputController();
-	private OutputController oc = new OutputController();
+	private Data data;
+	private Texture texture;
+	private InputController ic;
+	private OutputController oc;
 
 	private KeyCode keyCode;
 	
+	public static Graphics waitForStartUp() {
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return graphics;
+	}
+
+	public static void setStartUp(Graphics graphics0) {
+		graphics = graphics0;
+		latch.countDown();
+	}
+
 	public void loadMap(String mapPath) throws Exception {
 		data.loadMap(mapPath);
 		data.loadSpawn(mapPath);
@@ -54,6 +72,11 @@ public class Graphics extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		System.out.println("[view] Starting graphical application");
+		
+		data    = new Data();
+		texture = new Texture();
+		ic  	= new InputController();
+		oc 	= new OutputController();
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 		loader.setController(oc);
@@ -72,11 +95,13 @@ public class Graphics extends Application {
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
 
 		/* TESTING AREA : TO BE REMOVED */
-		loadMap("../../maps/01_Little_Island");
-		setText(0, "This is text\nnumber 0");
-		setText(1, "This is text\nnumber 1");
-		setText(2, "This is text\nnumber 2");
+		loadMap("../maps/01_Little_Island");
+		//setText(0, "This is text\nnumber 0");
+		//setText(1, "This is text\nnumber 1");
+		//setText(2, "This is text\nnumber 2");
 		/* END OF TESTING AREA 		*/
+
+		setStartUp(this);
 	}
 
 	public static void main (String[] args) {
