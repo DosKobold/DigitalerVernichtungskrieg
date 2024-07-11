@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.InputStreamReader;
 
 public class Data {
 
@@ -73,7 +74,8 @@ public class Data {
 
 	private ArrayList<ArrayList<Character>> readCsv(String filePath) throws Exception {
 		ArrayList<ArrayList<Character>> list = new ArrayList<>();
-		Scanner scanner = new Scanner(new File(filePath));
+		//Scanner scanner = new Scanner(new File(filePath));
+		Scanner scanner = new Scanner(new InputStreamReader(getClass().getResourceAsStream(filePath)));
 		int lineNo = 0;
 		while(scanner.hasNextLine()) {
 			System.out.print("\t");

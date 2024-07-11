@@ -8,3 +8,12 @@ Authors:     Tom Schwindl  <schwindl@posteo.de>
              Paul Stöckle  <paul.stoeckle@t-online.de>
              Elias Schnick <eliasschnick@t-online.de>
              Ben Oeckl     <ben@oeckl.com>
+
+
+ Compile and Run
++---------------+
+
+1. Install maven
+	On debian: apt install maven
+2. Download recources, compile and run 
+	mvn clean javafx:run

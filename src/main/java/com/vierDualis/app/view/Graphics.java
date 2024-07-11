@@ -78,7 +78,7 @@ public class Graphics extends Application {
 		ic  	= new InputController();
 		oc 	= new OutputController();
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
 		loader.setController(oc);
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
@@ -95,7 +95,7 @@ public class Graphics extends Application {
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
 
 		/* TESTING AREA : TO BE REMOVED */
-		loadMap("../maps/01_Little_Island");
+		loadMap("/maps/01_Little_Island");
 		//setText(0, "This is text\nnumber 0");
 		//setText(1, "This is text\nnumber 1");
 		//setText(2, "This is text\nnumber 2");

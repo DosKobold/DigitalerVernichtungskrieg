@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Texture {
 
-	private final String imagePath   = "file:../textures/";
+	private final String imagePath   = "/textures/";
 	private final String mapError    = imagePath + "map/error.png";
 	private final String troopError  = imagePath + "troops/error.png";
 	private final String markedError = imagePath + "marker/error.png";
