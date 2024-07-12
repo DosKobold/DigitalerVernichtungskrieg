@@ -66,7 +66,25 @@ public class Converter {
 		return troops;
 	}
 
-	ArrayList<ArrayList<Character>> troopToChar(ArrayList<Troop>) {
+	ArrayList<ArrayList<Character>> troopToChar(ArrayList<Troop> troops, int sizeX, int sizeY) {
+
+		ArrayList<ArrayList<Character>> troops2d = new ArrayList<>();
 		
+		for (int i=0; i<sizeY; i++) {
+			troops2d.add(new ArrayList<Character>());
+			for (int n=0; n<sizeX; n++) {
+				troops2d.get(i).add('_');
+			}
+		}
+
+		for (int i=0; i<troops.size(); i++) {
+			Character troop = troops.get(i).toChar();
+			int xPos  = troops.get(i).getX();
+			int yPos  = troops.get(i).getY();
+		
+			troops2d.get(yPos).set(xPos, troop);
+			
+		}
+		return troops2d;
 	}
 }
