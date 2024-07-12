@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Troop implements Movable, Attackable {
+public class Troop implements Movable, Attackable {
     protected int hp;
     protected int attackPower;
     protected int movementRange;
@@ -38,12 +38,4 @@ public abstract class Troop implements Movable, Attackable {
 
     public String getWeapon() { return weapon; }
     public void setWeapon(String weapon) { this.weapon = weapon; }
-
-    @Override
-    public abstract void move(int newX, int newY);
-
-    @Override
-    public abstract void attack(Troop target);
 }
-
-
