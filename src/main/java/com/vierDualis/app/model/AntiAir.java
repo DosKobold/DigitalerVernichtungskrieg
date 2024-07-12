@@ -18,4 +18,8 @@ public class AntiAir extends Troop {
     public void attack(Troop target) {
         target.setHp(target.getHp() - this.attackPower);
     }
+
+    public char toChar() {
+		return (color.equals("red") ? 'A' : 'a');
+    }
 }

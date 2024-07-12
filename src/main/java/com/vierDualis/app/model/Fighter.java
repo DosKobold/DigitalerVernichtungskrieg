@@ -18,4 +18,8 @@ public class Fighter extends Troop {
     public void attack(Troop target) {
         target.setHp(target.getHp() - this.attackPower);
     }
+
+    public char toChar() {
+		return (color.equals("red") ? 'F' : 'f');
+    }
 }
