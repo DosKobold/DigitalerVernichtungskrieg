@@ -6,16 +6,14 @@ public class Troop implements Movable, Attackable {
     protected int movementRange;
     protected int x, y;
     protected String color; // Team color
-    protected String weapon;
 
-    public Troop(int hp, int attackPower, int movementRange, int x, int y, String color, String weapon) {
+    public Troop(int hp, int attackPower, int movementRange, int x, int y, String color) {
         this.hp = hp;
         this.attackPower = attackPower;
         this.movementRange = movementRange;
         this.x = x;
         this.y = y;
         this.color = color;
-        this.weapon = weapon;
     }
 
     public int getHp() { return hp; }
@@ -35,7 +33,4 @@ public class Troop implements Movable, Attackable {
     
     public String getColor() { return color; }
     public void setColor(String color) { this.color = color; }
-
-    public String getWeapon() { return weapon; }
-    public void setWeapon(String weapon) { this.weapon = weapon; }
 }

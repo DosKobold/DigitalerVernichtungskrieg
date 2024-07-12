@@ -2,8 +2,8 @@ package model;
 
 public class Fighter extends Troop {
 
-    public Fighter(int x, int y, String color, String weapon) {
-        super(10, 1, 9, x, y, color, weapon);
+    public Fighter(int x, int y, String color) {
+        super(10, 1, 9, x, y, color);
     }
 
     @Override

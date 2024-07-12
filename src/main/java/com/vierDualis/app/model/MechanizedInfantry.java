@@ -2,8 +2,8 @@ package model;
 
 public class MechanizedInfantry extends Troop {
 
-    public MechanizedInfantry(int x, int y, String color, String weapon) {
-        super(10, 1, 2, x, y, color, weapon);
+    public MechanizedInfantry(int x, int y, String color) {
+        super(10, 1, 2, x, y, color);
     }
 
     @Override

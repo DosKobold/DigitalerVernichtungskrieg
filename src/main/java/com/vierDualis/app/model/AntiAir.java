@@ -2,8 +2,8 @@ package model;
 
 public class AntiAir extends Troop {
 
-    public AntiAir(int x, int y, String color, String weapon) {
-        super(10, 1, 6, x, y, color, weapon);
+    public AntiAir(int x, int y, String color) {
+        super(10, 1, 6, x, y, color);
     }
 
     @Override
