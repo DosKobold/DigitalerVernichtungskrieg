@@ -1,6 +1,7 @@
 package logic;
 
 import view.*;
+import model.*;
 import javafx.application.Application;
 import java.lang.Thread;
 import javafx.scene.input.KeyCode;
@@ -8,8 +9,12 @@ import java.util.ArrayList;
 
 public class Main {
 
-	private static ArrayList<ArrayList<Character>> map;
-	private static ArrayList<ArrayList<Character>> troops;
+	private static ArrayList<ArrayList<Character>> map2d;
+	private static ArrayList<ArrayList<Character>> troops2d;
+	
+	private static ArrayList<Troop> troops = new ArrayList<>();
+
+	private static Converter converter = new Converter();
 
 	public static void main (String[] args) throws Exception {
 		new Thread() {
@@ -38,9 +43,36 @@ public class Main {
 			}
 		}
 		
-		map    = graphics.getMap();
-		troops = graphics.getSpawn();
+		map2d    = graphics.getMap();
+		troops2d = graphics.getSpawn();
 
 		graphics.clearText();
+
+
+		troops = converter.convertTroops(troops2d);
+
+		System.out.println(troops.size());
+
+		for (int i=0; i<troops.size(); i++) {
+			System.out.println(troops.get(i).getColor());
+		}
+
+		/*for (int lineNo=0; lineNo<troops2d.size(); lineNo++) {
+			for (int fieldNo=0; fieldNo<troops2d.get(lineNo).size(); fieldNo++) {
+				
+			}
+		}
+		*/
+
+		for (int run=0;;) {
+			turn(run % 2);
+		}
+	}
+
+	private void turn(player) {
+		//Output
+		graphics.setText(1, "BLABLA");
+		converter.
+		//Input
 	}
 }

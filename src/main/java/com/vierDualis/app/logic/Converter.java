@@ -1,14 +1,15 @@
 package logic;
 
+import model.*;
 import java.util.ArrayList;
 
 public class Converter {
-	public ArrayList<Troop> convertTroops(ArrayList<ArrayList<Character>> troops2d)
+	public ArrayList<Troop> charToTroop(ArrayList<ArrayList<Character>> troops2d)
 	{
 		ArrayList<Troop> troops = new ArrayList<>();
 
-		for (int line = 0; i < troops2d.size(); ++i) {
-			for (int field = 0; field < troops2d.get(line); ++field) {
+		for (int line = 0; line < troops2d.size(); ++line) {
+			for (int field = 0; field < troops2d.get(line).size(); ++field) {
 				switch (troops2d.get(line).get(field)) {
 				case 'I':
 					troops.add(new Infantry(field, line, "red"));
@@ -63,5 +64,9 @@ public class Converter {
 		}
 
 		return troops;
+	}
+
+	ArrayList<ArrayList<Character>> troopToChar(ArrayList<Troop>) {
+		
 	}
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Troop implements Movable, Attackable {
+public class Troop {
     protected int hp;
     protected int attackPower;
     protected int movementRange;
