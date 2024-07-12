@@ -12,7 +12,7 @@ public class Main {
 	private static ArrayList<ArrayList<Character>> map2d;
 	private static ArrayList<ArrayList<Character>> troops2d;
 	
-	private static ArrayList<Troop> troops = new ArrayList<>();
+	private static ArrayList<ArrayList<Troop>> troops = new ArrayList<>();
 
 	private static Converter converter = new Converter();
 

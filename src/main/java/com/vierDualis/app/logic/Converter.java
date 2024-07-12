@@ -4,9 +4,9 @@ import model.*;
 import java.util.ArrayList;
 
 public class Converter {
-	public ArrayList<Troop> charToTroop(ArrayList<ArrayList<Character>> troops2d)
+	public ArrayList<ArrayList<Troop>> charToTroop(ArrayList<ArrayList<Character>> troops2d)
 	{
-		ArrayList<Troop> troops = new ArrayList<>();
+		ArrayList<ArrayList<Troop>> troops = new ArrayList<>();
 
 		for (int line = 0; line < troops2d.size(); ++line) {
 			for (int field = 0; field < troops2d.get(line).size(); ++field) {
@@ -59,6 +59,9 @@ public class Converter {
 				case 'c':
 					troops.add(new BattleCopter(field, line, "blue"));
 					break;
+				default:
+					troops.add(null);
+					break;
 				}
 			}
 		}
@@ -66,7 +69,7 @@ public class Converter {
 		return troops;
 	}
 
-	ArrayList<ArrayList<Character>> troopToChar(ArrayList<Troop> troops, int sizeX, int sizeY) {
+	ArrayList<ArrayList<Character>> troopToChar(ArrayList<ArrayList<Troop>> troops, int sizeX, int sizeY) {
 
 		ArrayList<ArrayList<Character>> troops2d = new ArrayList<>();
 		
@@ -78,11 +81,13 @@ public class Converter {
 		}
 
 		for (int i=0; i<troops.size(); i++) {
-			Character troop = troops.get(i).toChar();
-			int xPos  = troops.get(i).getX();
-			int yPos  = troops.get(i).getY();
-		
-			troops2d.get(yPos).set(xPos, troop);
+			for (int n=0; n<troops.get(i).size(); n++) {
+				Character troop = troops.get(i).get(n).toChar();
+				int xPos  = troops.get(i).get(n).getX();
+				int yPos  = troops.get(i).get(n).getY();
+			
+				troops2d.get(yPos).set(xPos, troop);
+			}
 			
 		}
 		return troops2d;
