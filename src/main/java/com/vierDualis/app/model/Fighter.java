@@ -6,7 +6,7 @@ public class Fighter extends Troop {
         super(10, 1, 9, x, y, color);
     }
 
-    @Override
+    
     public void move(int newX, int newY) {
         if (Math.abs(newX - this.x) + Math.abs(newY - this.y) <= movementRange) {
             this.x = newX;
@@ -14,7 +14,7 @@ public class Fighter extends Troop {
         }
     }
 
-    @Override
+    
     public void attack(Troop target) {
         target.setHp(target.getHp() - this.attackPower);
     }
