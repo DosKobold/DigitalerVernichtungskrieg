@@ -58,6 +58,12 @@ public class Graphics extends Application {
 		oc.drawText(data.getText());
 	}
 
+	public void clearText() {
+		for (int i=0; i<3; i++) {
+			setText(i, null);
+		}
+	}
+
 	public void setMap(ArrayList<ArrayList<Character>> troops, ArrayList<ArrayList<Character>> choosen, ArrayList<ArrayList<Character>> marked) {
 		data.setTroops(troops);
 		data.setChoosen(choosen);
@@ -95,7 +101,7 @@ public class Graphics extends Application {
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
 
 		/* TESTING AREA : TO BE REMOVED */
-		loadMap("/maps/01_Little_Island");
+		//loadMap("/maps/01_Little_Island");
 		//setText(0, "This is text\nnumber 0");
 		//setText(1, "This is text\nnumber 1");
 		//setText(2, "This is text\nnumber 2");
