@@ -8,12 +8,29 @@ Authors:     Tom Schwindl  <schwindl@posteo.de>
              Paul Stöckle  <paul.stoeckle@t-online.de>
              Elias Schnick <eliasschnick@t-online.de>
              Ben Oeckl     <ben@oeckl.com>
-
+Link:	     https://github.com/DosKobold/DigitalerVernichtungskrieg
+Status:	     The project is unfinished and the game not working because 
+	     of the missing logic of movement and troop interaction.
 
  Compile and Run
 +---------------+
 
 1. Install maven
 	On debian: apt install maven
-2. Download recources, compile and run 
+2. Install javafx
+	On debian: apt install openjfx
+3. Compile and run 
 	mvn clean javafx:run
+
+ Tasks and Responsibilities
++--------------------------+
+
++------------------------------------+
+|Task     | Name        | Status     |
+|---------+-------------+------------|
+|view     | P. Stöckle  | Finished   |
+|maven    | P. Stöckle  | Finished   |
+|logic    | T. Schwindl | Unfinished |
+|model    | B. Oeckl    | Finished   |
+|textures | E. Schnick  | Finished   |
++------------------------------------+
