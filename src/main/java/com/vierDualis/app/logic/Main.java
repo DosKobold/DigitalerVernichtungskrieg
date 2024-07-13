@@ -55,7 +55,7 @@ public class Main {
 
 		System.out.println(troops.size());
 
-		for (int run=0;;) {
+		for (int run=0; ; run++) {
 			turn(run % 2);
 		}
 	}
@@ -65,6 +65,13 @@ public class Main {
 		int cursorY = 0;
 		ArrayList<ArrayList<Character>> choosen2d = new ArrayList<>();
 		Troop choosenTroop = null;
+		String playerColor;
+		if (player == 0) playerColor = "red";
+		else 	     playerColor = "blue";
+
+		//System.out.println(playerColor.equals("red"));
+
+		graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
 
 		for (int i=0; i<map2d.size(); i++) {
 			choosen2d.add(new ArrayList<Character>());
@@ -73,6 +80,7 @@ public class Main {
 			}
 		}
 
+		exit:
 		for (;;) {
 			//Output
 			troops2d = converter.troopToChar(troops);
@@ -98,16 +106,20 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case ENTER:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null) {
+				case SPACE:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null) {
 							choosenTroop = troops.get(cursorY).get(cursorX);
 							graphics.setText(1, choosenTroop.toString() + "\n" + choosenTroop.getHp());
 						} else if (troops.get(cursorY).get(cursorX) == null && choosenTroop != null) {
 							replace(choosenTroop, cursorX, cursorY);
+							choosenTroop = null;
+							graphics.setText(1,"");
 						}
 						break;
 				case Q:		choosenTroop = null;
-						graphics.clearText();
+						graphics.setText(1, "");
 						break;
+				case ENTER:	graphics.clearText();
+						break exit;
 			}
 		}
 	}
