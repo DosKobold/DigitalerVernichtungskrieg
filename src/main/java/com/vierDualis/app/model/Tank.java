@@ -22,4 +22,9 @@ public class Tank extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'T' : 't');
     }
+
+    public String toString() {
+	return "Kampfpanzer";
+    }
+
 }

@@ -22,4 +22,9 @@ public class Infantry extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'I' : 'i');
     }
+
+    public String toString() {
+	return "Infanterie";
+    }
+
 }

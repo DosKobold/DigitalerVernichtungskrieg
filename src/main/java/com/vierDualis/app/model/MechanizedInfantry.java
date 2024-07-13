@@ -22,4 +22,9 @@ public class MechanizedInfantry extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'M' : 'm');
     }
+
+    public String toString() {
+	return "Panzergrenadiere";
+    }
+
 }

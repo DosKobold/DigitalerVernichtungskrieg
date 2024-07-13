@@ -22,4 +22,9 @@ public class BattleCopter extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'C' : 'c');
     }
+
+    public String toString() {
+	return "Kampfhelikopter";
+    }
+
 }

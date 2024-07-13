@@ -22,4 +22,9 @@ public class MobileArtillery extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'D' : 'd');
     }
+
+    public String toString() {
+	return "Mobile Artillerie";
+    }
+
 }

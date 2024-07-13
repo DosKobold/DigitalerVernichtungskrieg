@@ -22,4 +22,8 @@ public class AntiAir extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'A' : 'a');
     }
+
+    public String toString() {
+	return "Mobile Luftabwehr";
+    }
 }

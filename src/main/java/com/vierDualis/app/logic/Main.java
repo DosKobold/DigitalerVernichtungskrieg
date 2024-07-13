@@ -55,10 +55,6 @@ public class Main {
 
 		System.out.println(troops.size());
 
-		for (int i=0; i<troops.size(); i++) {
-			System.out.println(troops.get(i).getColor());
-		}
-
 		for (int run=0;;) {
 			turn(run % 2);
 		}
@@ -68,6 +64,7 @@ public class Main {
 		int cursorX = 0;
 		int cursorY = 0;
 		ArrayList<ArrayList<Character>> choosen2d = new ArrayList<>();
+		Troop choosenTroop = null;
 
 		for (int i=0; i<map2d.size(); i++) {
 			choosen2d.add(new ArrayList<Character>());
@@ -78,8 +75,7 @@ public class Main {
 
 		for (;;) {
 			//Output
-			graphics.setText(1, "BLABLA");
-			troops2d = converter.troopToChar(troops, troops2d.get(0).size(), troops2d.size());
+			troops2d = converter.troopToChar(troops);
 			
 			for (int i=0; i<map2d.size(); i++) {
 				for (int n=0; n<map2d.get(i).size(); n++) {
@@ -94,15 +90,32 @@ public class Main {
 			KeyCode key = graphics.waitForKey();
 			System.out.println(key);
 			switch (key) {
-				case UP: if (cursorY > 0) cursorY -= 1;
-					 break;
-				case DOWN: if (cursorY < map2d.size()-1) cursorY += 1;
-					   break;
-				case RIGHT: if (cursorX < map2d.get(0).size()-1) cursorX += 1;
-					    break;
-				case LEFT:  if (cursorX > 0) cursorX -= 1;
-					     break;
+				case UP: 	if (cursorY > 0) cursorY -= 1;
+					 	break;
+				case DOWN:	if (cursorY < map2d.size()-1) cursorY += 1;
+					   	break;
+				case RIGHT: 	if (cursorX < map2d.get(0).size()-1) cursorX += 1;
+					    	break;
+				case LEFT:  	if (cursorX > 0) cursorX -= 1;
+					     	break;
+				case ENTER:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null) {
+							choosenTroop = troops.get(cursorY).get(cursorX);
+							graphics.setText(1, choosenTroop.toString() + "\n" + choosenTroop.getHp());
+						} else if (troops.get(cursorY).get(cursorX) == null && choosenTroop != null) {
+							replace(choosenTroop, cursorX, cursorY);
+						}
+						break;
+				case Q:		choosenTroop = null;
+						graphics.clearText();
+						break;
 			}
 		}
+	}
+
+	private static void replace(Troop troop, int posX, int posY) {
+		troops.get(troop.getY()).set(troop.getX(),null);
+		troop.setX(posX);
+		troop.setY(posY);
+		troops.get(posY).set(posX, troop);
 	}
 }

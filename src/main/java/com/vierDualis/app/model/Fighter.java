@@ -22,4 +22,9 @@ public class Fighter extends Troop {
     public char toChar() {
 		return (color.equals("red") ? 'F' : 'f');
     }
+
+    public String toString() {
+	return "Kampfjet";
+    }
+
 }
