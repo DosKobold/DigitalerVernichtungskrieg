@@ -66,10 +66,9 @@ public class Main {
 		ArrayList<ArrayList<Character>> choosen2d = new ArrayList<>();
 		Troop choosenTroop = null;
 		String playerColor;
+
 		if (player == 0) playerColor = "red";
 		else 	     playerColor = "blue";
-
-		//System.out.println(playerColor.equals("red"));
 
 		graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
 
@@ -106,7 +105,7 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case SPACE:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null) {
+				case SPACE:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null && playerColor.equals(troops.get(cursorY).get(cursorX).getColor())) {
 							choosenTroop = troops.get(cursorY).get(cursorX);
 							graphics.setText(1, choosenTroop.toString() + "\n" + choosenTroop.getHp());
 						} else if (troops.get(cursorY).get(cursorX) == null && choosenTroop != null) {
