@@ -11,6 +11,7 @@ public class Main {
 
 	private static ArrayList<ArrayList<Character>> map2d;
 	private static ArrayList<ArrayList<Character>> troops2d;
+	private static ArrayList<ArrayList<Character>> marked2d = new ArrayList();
 	
 	private static int cursorX = 0;
 	private static int cursorY = 0;
@@ -20,6 +21,7 @@ public class Main {
 	private static ArrayList<ArrayList<Troop>> troops = new ArrayList<>();
 
 	private static Converter converter = new Converter();
+	private static MovementFinder movFinder = new MovementFinder();
 
 	private static Graphics graphics;
 
@@ -53,7 +55,6 @@ public class Main {
 		troops2d = graphics.getSpawn();
 
 		graphics.clearText();
-
 
 		troops = converter.charToTroop(troops2d);
 
@@ -93,8 +94,8 @@ public class Main {
 				}
 			}
 			choosen2d.get(cursorY).set(cursorX, 'X');
-			//TODO: marked arraylist
-			graphics.setMap(troops2d, choosen2d, choosen2d);
+			marked2d = movFinder.stupidMovementRange(troops, choosenTroop);
+			graphics.setMap(troops2d, choosen2d, marked2d);
 
 			//Input
 			KeyCode key = graphics.waitForKey();

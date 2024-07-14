@@ -10,19 +10,25 @@ public class MovementFinder {
 	 * Alternative implementation of the troop-marking-algorithm.
 	 * It doesn't suffice for the given requirements, but at least does _something_.
 	 */
-	public static ArrayList<ArrayList<Character>> stupidMovementRange(ArrayList<ArrayList<Character>> map, Troop current) {
+	public static ArrayList<ArrayList<Character>> stupidMovementRange(ArrayList<ArrayList<Troop>> troops, Troop current) {
 		int line, field;
-		Converter converter = new Converter();
 		ArrayList<ArrayList<Character>> marked = new ArrayList<>();
-		ArrayList<ArrayList<Troop>> troopMap = new ArrayList<>();
 
-		troopMap = converter.charToTroop(map);
+		if (current == null) {
+			for (line=0; line<troops.size(); line++) {
+				marked.add(new ArrayList<Character>());
+				for (field=0; field<troops.get(line).size(); field++) {
+					marked.get(line).add('_');
+				}
+			}
+			return marked;
+		}
 
-		exit:
-		for (line=0; line<map.size(); line++) {
-			for (field=0; field<map.get(line).size(); field++) {
+		/*exit:
+		for (line=0; line<troops.size(); line++) {
+			for (field=0; field<troops.get(line).size(); field++) {
 				// Found the position of the current troop on the map
-				if (getTroop(troopMap, line, field).getX() == current.getX() && getTroop(troopMap, line, field).getY() == current.getY()) {
+				if (getTroop(troops, line, field).getX() == current.getX() && getTroop(troops, line, field).getY() == current.getY()) {
 					break exit;
 				}
 			}
@@ -34,12 +40,12 @@ public class MovementFinder {
 			for (int k=0; k<current.getMovementRange(); k++) {
 				
 			}
-		}
+		}*/
 
 		return marked;
 	}
 
-	private static Troop getTroop(ArrayList<ArrayList<Troop>> map, int x, int y) {
+	/*private static Troop getTroop(ArrayList<ArrayList<Troop>> map, int x, int y) {
 		Troop troop = map.get(0).get(0);
 
 		for (int line=0; line<map.size(); line++) {
@@ -49,5 +55,5 @@ public class MovementFinder {
 		}
 
 		return troop;
-	}
+	}*/
 }
