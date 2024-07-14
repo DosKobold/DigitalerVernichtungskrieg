@@ -4,7 +4,6 @@ public class Infantry extends Troop {
 
     public Infantry(int x, int y, String color) {
         super(10, 1, 3, x, y, color);
-	this.movementRange = 3;
     }
 
     

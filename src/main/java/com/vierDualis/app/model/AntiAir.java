@@ -4,7 +4,6 @@ public class AntiAir extends Troop {
 
     public AntiAir(int x, int y, String color) {
         super(10, 1, 6, x, y, color);
-	this.movementRange = 6;
     }
 
     
