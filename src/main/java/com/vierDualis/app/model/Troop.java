@@ -35,4 +35,7 @@ public class Troop {
     public void setColor(String color) { this.color = color; }
 
     public char toChar() { return '0'; }
+
+    public void attack(Troop target) {}
+
 }

@@ -1,9 +1,23 @@
 package model;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class Fighter extends Troop {
 
+    private Map<String, Integer> dmgTable = new HashMap<>();
+
     public Fighter(int x, int y, String color) {
-        super(10, 1, 9, x, y, color);
+        super(100, 1, 9, x, y, color);
+
+	dmgTable.put("Infantry", 0);
+	dmgTable.put("MechanizedInfantry", 0);
+	dmgTable.put("Tank", 0);
+	dmgTable.put("MobileArtillery", 0);
+	dmgTable.put("AntiAir", 0);
+	dmgTable.put("Fighter", 55);
+	dmgTable.put("Bomber", 100);
+	dmgTable.put("BattleCopter", 100);
     }
 
     
@@ -16,7 +30,10 @@ public class Fighter extends Troop {
 
     
     public void attack(Troop target) {
-        target.setHp(target.getHp() - this.attackPower);
+	String targetName = target.getClass().getSimpleName();
+	int dmg = dmgTable.get(targetName);
+        target.setHp(target.getHp() - dmg);
+	System.out.println(this.getClass().getSimpleName() + " attacked " + targetName + " and made " + dmg + " damage");
     }
 
     public char toChar() {

@@ -95,7 +95,7 @@ public class Main {
 
 			//Input
 			KeyCode key = graphics.waitForKey();
-			System.out.println(key);
+			graphics.setText(2, "");
 			switch (key) {
 				case UP: 	if (cursorY > 0) cursorY -= 1;
 					 	break;
@@ -105,13 +105,32 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case SPACE:	if (troops.get(cursorY).get(cursorX) != null && choosenTroop == null && playerColor.equals(troops.get(cursorY).get(cursorX).getColor())) {
-							choosenTroop = troops.get(cursorY).get(cursorX);
-							graphics.setText(1, choosenTroop.toString() + "\n" + choosenTroop.getHp());
-						} else if (troops.get(cursorY).get(cursorX) == null && choosenTroop != null) {
+				case SPACE:	Troop cursorTroop = troops.get(cursorY).get(cursorX);
+						if (cursorTroop != null) {
+							if (choosenTroop == null) {
+								if (playerColor.equals(cursorTroop.getColor())) {
+									//Choose a troop
+									choosenTroop = cursorTroop;
+									graphics.setText(1, "Eigene Truppe:\n" + choosenTroop.toString() + "\nHP: " + choosenTroop.getHp());
+								}
+							} else  if (!(playerColor.equals(cursorTroop.getColor()))) {
+								//Attack a enemy
+								graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
+								if ((choosenTroop.getX()>=cursorTroop.getX()-1) && (choosenTroop.getX()<=cursorTroop.getX()+1) && (choosenTroop.getY()>=cursorTroop.getY()-1) && (choosenTroop.getY()<=cursorTroop.getY()+1)) {
+									if (graphics.waitForKey() == KeyCode.SPACE) {
+										choosenTroop.attack(cursorTroop);
+										graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
+										if (cursorTroop.getHp() < 1) {
+											troops.get(cursorTroop.getY()).set(cursorTroop.getX(), null);
+											graphics.setText(2, "Fremde Truppe:\nVernichtet");
+										}
+									}
+								}
+							}
+								
+						} else if (choosenTroop != null) {
+							//Replace the troop
 							replace(choosenTroop, cursorX, cursorY);
-							choosenTroop = null;
-							graphics.setText(1,"");
 						}
 						break;
 				case Q:		choosenTroop = null;
