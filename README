@@ -9,8 +9,7 @@ Authors:     Tom Schwindl  <schwindl@posteo.de>
              Elias Schnick <eliasschnick@t-online.de>
              Ben Oeckl     <ben@oeckl.com>
 Link:	     https://github.com/DosKobold/DigitalerVernichtungskrieg
-Status:	     The project is unfinished and the game not working because 
-	     of the missing logic of movement and troop interaction.
+Status:	     Missing logic of movement -> infinite movement possible
 
  Compile and Run
 +---------------+
@@ -25,6 +24,7 @@ Status:	     The project is unfinished and the game not working because
  Key bindings
 +------------+
 
+Coose a map:		 1, 2, 3
 Move the cursor: 	 Left, Right, Up, Down
 Interact with a troop: 	 Space
 Stop choosing own troop: Q

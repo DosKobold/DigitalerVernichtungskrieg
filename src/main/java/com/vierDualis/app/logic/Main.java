@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class Main {
 
-	private static ArrayList<ArrayList<Character>> map2d;
-	private static ArrayList<ArrayList<Character>> troops2d;
-	private static ArrayList<ArrayList<Character>> marked2d = new ArrayList();
+	private static ArrayList<ArrayList<Character>> mapChar;
+	private static ArrayList<ArrayList<Character>> troopsChar;
+	private static ArrayList<ArrayList<Character>> markedChar = new ArrayList();
 	
 	private static int cursorX = 0;
 	private static int cursorY = 0;
@@ -51,12 +51,12 @@ public class Main {
 			}
 		}
 		
-		map2d    = graphics.getMap();
-		troops2d = graphics.getSpawn();
+		mapChar    = graphics.getMap();
+		troopsChar = graphics.getSpawn();
 
 		graphics.clearText();
 
-		troops = converter.charToTroop(troops2d);
+		troops = converter.charToTroop(troopsChar);
 
 		for (int run=0; ; run++) {
 			turn(run % 2);
@@ -64,7 +64,7 @@ public class Main {
 	}
 
 	private static void turn(int player) throws Exception  {
-		ArrayList<ArrayList<Character>> choosen2d = new ArrayList<>();
+		ArrayList<ArrayList<Character>> choosenChar = new ArrayList<>();
 		choosenTroop = null;
 
 		if (player == 0) playerColor = "red";
@@ -72,10 +72,10 @@ public class Main {
 
 		System.out.println("[logic] " + "It is " + playerColor + "'s turn");
 
-		for (int line=0; line<map2d.size(); line++) {
-			choosen2d.add(new ArrayList<Character>());
-			for (int field=0; field<map2d.get(line).size(); field++) {
-				choosen2d.get(line).add('_');
+		for (int line=0; line<mapChar.size(); line++) {
+			choosenChar.add(new ArrayList<Character>());
+			for (int field=0; field<mapChar.get(line).size(); field++) {
+				choosenChar.get(line).add('_');
 				if (troops.get(line).get(field) != null)
 					troops.get(line).get(field).setAttack(1);
 			}
@@ -84,18 +84,18 @@ public class Main {
 		exit:
 		for (;;) {
 			//Output
-			troops2d = converter.troopToChar(troops);
+			troopsChar = converter.troopToChar(troops);
 
 			graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
 			
-			for (int i=0; i<map2d.size(); i++) {
-				for (int n=0; n<map2d.get(i).size(); n++) {
-					choosen2d.get(i).set(n, '_');
+			for (int i=0; i<mapChar.size(); i++) {
+				for (int n=0; n<mapChar.get(i).size(); n++) {
+					choosenChar.get(i).set(n, '_');
 				}
 			}
-			choosen2d.get(cursorY).set(cursorX, 'X');
-			marked2d = movFinder.stupidMovementRange(troops, choosenTroop);
-			graphics.setMap(troops2d, choosen2d, marked2d);
+			choosenChar.get(cursorY).set(cursorX, 'X');
+			markedChar = movFinder.stupidMovementRange(troops, choosenTroop);
+			graphics.setMap(troopsChar, choosenChar, markedChar);
 
 			//Input
 			KeyCode key = graphics.waitForKey();
@@ -103,9 +103,9 @@ public class Main {
 			switch (key) {
 				case UP: 	if (cursorY > 0) cursorY -= 1;
 					 	break;
-				case DOWN:	if (cursorY < map2d.size()-1) cursorY += 1;
+				case DOWN:	if (cursorY < mapChar.size()-1) cursorY += 1;
 					   	break;
-				case RIGHT: 	if (cursorX < map2d.get(0).size()-1) cursorX += 1;
+				case RIGHT: 	if (cursorX < mapChar.get(0).size()-1) cursorX += 1;
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
