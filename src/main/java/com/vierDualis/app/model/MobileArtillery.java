@@ -4,6 +4,7 @@ public class MobileArtillery extends Troop {
 
     public MobileArtillery(int x, int y, String color) {
         super(10, 3, 5, x, y, color);
+	this.movementRange = 5;
     }
 
     

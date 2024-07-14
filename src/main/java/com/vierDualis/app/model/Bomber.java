@@ -4,6 +4,7 @@ public class Bomber extends Troop {
 
     public Bomber(int x, int y, String color) {
         super(10, 1, 7, x, y, color);
+	this.movementRange = 7;
     }
 
     
