@@ -1,4 +1,4 @@
-package eu.happycoders.pathfinding.dijkstra;
+package logic;
 
 import com.google.common.graph.ValueGraph;
 import java.util.ArrayList;
