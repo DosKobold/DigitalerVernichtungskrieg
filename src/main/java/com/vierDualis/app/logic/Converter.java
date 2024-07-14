@@ -70,7 +70,7 @@ public class Converter {
 		return troops;
 	}
 
-	ArrayList<ArrayList<Character>> troopToChar(ArrayList<ArrayList<Troop>> troops) {
+	public ArrayList<ArrayList<Character>> troopToChar(ArrayList<ArrayList<Troop>> troops) {
 
 		ArrayList<ArrayList<Character>> troops2d = new ArrayList<>();
 		
