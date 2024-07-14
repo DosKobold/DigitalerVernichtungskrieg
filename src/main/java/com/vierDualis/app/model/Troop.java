@@ -2,14 +2,14 @@ package model;
 
 public class Troop {
     protected int hp;
-    protected int attackPower;
+    protected int attack;
     protected int movementRange;
     protected int x, y;
-    protected String color; // Team color
+    protected String color;
 
-    public Troop(int hp, int attackPower, int movementRange, int x, int y, String color) {
+    public Troop(int hp, int attack, int movementRange, int x, int y, String color) {
         this.hp = hp;
-        this.attackPower = attackPower;
+        this.attack = attack;
         this.movementRange = movementRange;
         this.x = x;
         this.y = y;
@@ -19,8 +19,8 @@ public class Troop {
     public int getHp() { return hp; }
     public void setHp(int hp) { this.hp = hp; }
 
-    public int getAttackPower() { return attackPower; }
-    public void setAttackPower(int attackPower) { this.attackPower = attackPower; }
+    public int getAttack() { return attack; }
+    public void setAttack(int attack) { this.attack = attack; }
 
     public int getMovementRange() { return movementRange; }
     public void setMovementRange(int movementRange) { this.movementRange = movementRange; }

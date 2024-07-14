@@ -8,7 +8,7 @@ public class MobileArtillery extends Troop {
     private Map<String, Integer> dmgTable = new HashMap<>();
 
     public MobileArtillery(int x, int y, String color) {
-        super(100, 3, 5, x, y, color);
+        super(100, 1, 5, x, y, color);
 
 	dmgTable.put("Infantry", 90);
 	dmgTable.put("MechanizedInfantry", 85);
@@ -32,8 +32,8 @@ public class MobileArtillery extends Troop {
     public void attack(Troop target) {
 	String targetName = target.getClass().getSimpleName();
 	int dmg = dmgTable.get(targetName);
+	System.out.println("[model] " + this.getColor() + " " + this.getClass().getSimpleName() + " attacked " + target.getColor() + " " + targetName + " and made " + dmg + " damage (" + target.getHp() + " -> " + (target.getHp()-dmg) + ")");
         target.setHp(target.getHp() - dmg);
-	System.out.println(this.getClass().getSimpleName() + " attacked " + targetName + " and made " + dmg + " damage");
     }
 
     public char toChar() {

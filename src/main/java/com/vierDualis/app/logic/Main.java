@@ -12,6 +12,11 @@ public class Main {
 	private static ArrayList<ArrayList<Character>> map2d;
 	private static ArrayList<ArrayList<Character>> troops2d;
 	
+	private static int cursorX = 0;
+	private static int cursorY = 0;
+	private static Troop choosenTroop;
+	private static String playerColor;
+
 	private static ArrayList<ArrayList<Troop>> troops = new ArrayList<>();
 
 	private static Converter converter = new Converter();
@@ -34,7 +39,6 @@ public class Main {
 		exit:
 		for (;;) {
 			KeyCode key = graphics.waitForKey();
-			System.out.println(key);
 			switch (key) {
 				case DIGIT1: graphics.loadMap("/maps/01_Little_Island");
 					     break exit;
@@ -53,29 +57,26 @@ public class Main {
 
 		troops = converter.charToTroop(troops2d);
 
-		System.out.println(troops.size());
-
 		for (int run=0; ; run++) {
 			turn(run % 2);
 		}
 	}
 
 	private static void turn(int player) throws Exception  {
-		int cursorX = 0;
-		int cursorY = 0;
 		ArrayList<ArrayList<Character>> choosen2d = new ArrayList<>();
-		Troop choosenTroop = null;
-		String playerColor;
+		choosenTroop = null;
 
 		if (player == 0) playerColor = "red";
 		else 	     playerColor = "blue";
 
-		graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
+		System.out.println("[logic] " + "It is " + playerColor + "'s turn");
 
-		for (int i=0; i<map2d.size(); i++) {
+		for (int line=0; line<map2d.size(); line++) {
 			choosen2d.add(new ArrayList<Character>());
-			for (int n=0; n<map2d.get(i).size(); n++) {
-				choosen2d.get(i).add('_');
+			for (int field=0; field<map2d.get(line).size(); field++) {
+				choosen2d.get(line).add('_');
+				if (troops.get(line).get(field) != null)
+					troops.get(line).get(field).setAttack(1);
 			}
 		}
 
@@ -83,6 +84,8 @@ public class Main {
 		for (;;) {
 			//Output
 			troops2d = converter.troopToChar(troops);
+
+			graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
 			
 			for (int i=0; i<map2d.size(); i++) {
 				for (int n=0; n<map2d.get(i).size(); n++) {
@@ -105,33 +108,7 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case SPACE:	Troop cursorTroop = troops.get(cursorY).get(cursorX);
-						if (cursorTroop != null) {
-							if (choosenTroop == null) {
-								if (playerColor.equals(cursorTroop.getColor())) {
-									//Choose a troop
-									choosenTroop = cursorTroop;
-									graphics.setText(1, "Eigene Truppe:\n" + choosenTroop.toString() + "\nHP: " + choosenTroop.getHp());
-								}
-							} else  if (!(playerColor.equals(cursorTroop.getColor()))) {
-								//Attack a enemy
-								graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
-								if ((choosenTroop.getX()>=cursorTroop.getX()-1) && (choosenTroop.getX()<=cursorTroop.getX()+1) && (choosenTroop.getY()>=cursorTroop.getY()-1) && (choosenTroop.getY()<=cursorTroop.getY()+1)) {
-									if (graphics.waitForKey() == KeyCode.SPACE) {
-										choosenTroop.attack(cursorTroop);
-										graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
-										if (cursorTroop.getHp() < 1) {
-											troops.get(cursorTroop.getY()).set(cursorTroop.getX(), null);
-											graphics.setText(2, "Fremde Truppe:\nVernichtet");
-										}
-									}
-								}
-							}
-								
-						} else if (choosenTroop != null) {
-							//Replace the troop
-							replace(choosenTroop, cursorX, cursorY);
-						}
+				case SPACE:	interact();
 						break;
 				case Q:		choosenTroop = null;
 						graphics.setText(1, "");
@@ -142,8 +119,45 @@ public class Main {
 		}
 	}
 
+	private static void interact() throws Exception {
+		Troop cursorTroop = troops.get(cursorY).get(cursorX);
+		if (cursorTroop != null) {
+			if (choosenTroop == null) {
+				if (playerColor.equals(cursorTroop.getColor())) {
+					//Choose own troop
+					choosenTroop = cursorTroop;
+					graphics.setText(1, "Eigene Truppe:\n" + choosenTroop.toString() + "\nHP: " + choosenTroop.getHp());
+					System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " choosen");
+				}
+			} else  if (!(playerColor.equals(cursorTroop.getColor()))) {
+				//Choose enemy troop
+				graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
+				System.out.println("[logic] " + cursorTroop.getColor() + " " + cursorTroop.getClass().getSimpleName() + " choosen");
+				if ((choosenTroop.getX()>=cursorTroop.getX()-1) && (choosenTroop.getX()<=cursorTroop.getX()+1) && (choosenTroop.getY()>=cursorTroop.getY()-1) && (choosenTroop.getY()<=cursorTroop.getY()+1) && (choosenTroop.getAttack()==1)) {
+					//Attack enemy troop
+					graphics.setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau") + "\nAngreifen? [J]");
+					if (graphics.waitForKey() == KeyCode.J) {
+						choosenTroop.setAttack(0);
+						choosenTroop.attack(cursorTroop);
+						graphics.setText(2, "Fremde Truppe:\n" + cursorTroop.toString() + "\nHP: " + cursorTroop.getHp());
+						if (cursorTroop.getHp() < 1) {
+							//Enemy troop got killed
+							System.out.println("[logic] " + cursorTroop.getColor() + " " + cursorTroop.getClass().getSimpleName() + " got killed");
+							troops.get(cursorTroop.getY()).set(cursorTroop.getX(), null);
+							graphics.setText(2, "Fremde Truppe:\nVernichtet");
+						}
+					}
+				}
+			}
+		} else if (choosenTroop != null) {
+			//Replace the troop
+			replace(choosenTroop, cursorX, cursorY);
+		}
+	}
+
 	private static void replace(Troop troop, int posX, int posY) {
 		troops.get(troop.getY()).set(troop.getX(),null);
+		System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " replaced ((" + troop.getX() + "|" + troop.getY() + ") -> (" + posX + "|" + posY + "))");
 		troop.setX(posX);
 		troop.setY(posY);
 		troops.get(posY).set(posX, troop);

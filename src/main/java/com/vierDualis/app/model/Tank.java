@@ -32,8 +32,8 @@ public class Tank extends Troop {
     public void attack(Troop target) {
 	String targetName = target.getClass().getSimpleName();
 	int dmg = dmgTable.get(targetName);
+	System.out.println("[model] " + this.getColor() + " " + this.getClass().getSimpleName() + " attacked " + target.getColor() + " " + targetName + " and made " + dmg + " damage (" + target.getHp() + " -> " + (target.getHp()-dmg) + ")");
         target.setHp(target.getHp() - dmg);
-	System.out.println(this.getClass().getSimpleName() + " attacked " + targetName + " and made " + dmg + " damage");
     }
 
     public char toChar() {
