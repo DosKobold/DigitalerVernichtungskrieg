@@ -74,7 +74,6 @@ public class Data {
 
 	private ArrayList<ArrayList<Character>> readCsv(String filePath) throws Exception {
 		ArrayList<ArrayList<Character>> list = new ArrayList<>();
-		//Scanner scanner = new Scanner(new File(filePath));
 		Scanner scanner = new Scanner(new InputStreamReader(getClass().getResourceAsStream(filePath)));
 		int lineNo = 0;
 		while(scanner.hasNextLine()) {

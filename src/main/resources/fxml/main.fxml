@@ -11,23 +11,23 @@
    <children>
       <StackPane fx:id="stackPane0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="0.0">
          <children>
-            <Text fx:id="text0" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" wrappingWidth="274.13000106811523" StackPane.alignment="CENTER_LEFT">
+            <Text fx:id="text0" fill="#e5e5e5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" wrappingWidth="274.13000106811523" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets left="10.0" />
                </StackPane.margin>
                <font>
-                  <Font name="Classic Console" size="35.0" />
+                  <Font name="DejaVu Sans Bold" size="25.0" />
                </font></Text>
-            <Text fx:id="text1" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="CENTER" wrappingWidth="275.13000106811523" StackPane.alignment="CENTER">
+            <Text fx:id="text1" fill="#e5e5e5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="CENTER" wrappingWidth="275.13000106811523" StackPane.alignment="CENTER">
                <font>
-                  <Font name="Classic Console" size="35.0" />
+                  <Font name="DejaVu Sans Bold" size="25.0" />
                </font></Text>
-            <Text fx:id="text2" fill="#33ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="RIGHT" wrappingWidth="259.13000106811523" StackPane.alignment="CENTER_RIGHT">
+            <Text fx:id="text2" fill="#e5e5e5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text&#10;Text" textAlignment="RIGHT" wrappingWidth="259.13000106811523" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets right="10.0" />
                </StackPane.margin>
                <font>
-                  <Font name="Classic Console" size="35.0" />
+                  <Font name="DejaVu Sans Bold" size="25.0" />
                </font></Text>
          </children>
          <VBox.margin>

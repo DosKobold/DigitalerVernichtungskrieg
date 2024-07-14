@@ -22,6 +22,14 @@ Status:	     The project is unfinished and the game not working because
 3. Compile and run 
 	mvn clean javafx:run
 
+ Key bindings
++------------+
+
+Move the cursor: 	 Left, Right, Up, Down
+Interact with a troop: 	 Space
+Stop choosing own troop: Q
+Attack: 		 J
+
  Tasks and Responsibilities
 +--------------------------+
 

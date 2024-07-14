@@ -94,18 +94,11 @@ public class Graphics extends Application {
 		primaryStage.setTitle("DigitalerVernichtungskrieg");
 		primaryStage.setMinHeight(600);
 		primaryStage.setMinWidth(1000);
-		//primaryStage.setMaximized(true);
+		primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
-
-		/* TESTING AREA : TO BE REMOVED */
-		//loadMap("/maps/01_Little_Island");
-		//setText(0, "This is text\nnumber 0");
-		//setText(1, "This is text\nnumber 1");
-		//setText(2, "This is text\nnumber 2");
-		/* END OF TESTING AREA 		*/
 
 		setStartUp(this);
 	}
