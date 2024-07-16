@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.fxml.FXMLLoader;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class Graphics extends Application {
 
@@ -37,11 +38,23 @@ public class Graphics extends Application {
 		latch.countDown();
 	}
 
-	public void loadMap(String mapPath) throws Exception {
+	public void loadMap(String mapPath) {
 		data.loadMap(mapPath);
 		data.loadSpawn(mapPath);
 		data.setTroops(data.getSpawn());
-		drawOnScreen();
+		try {
+			drawOnScreen(true);
+		} catch (MapSizeException e) {
+			System.out.println("[view] WARNING! The frame layers have different dimensions or are not rectangles. Can not continue!");
+			clearText();
+			setText(1, "Warning!\nMap error\nSee logs\nCan not continue!");
+			try {
+				TimeUnit.DAYS.sleep(1); 
+			} catch (InterruptedException f) {
+				System.out.println("[view] ERROR! Sleep process interrupted. Terminating application...");
+				System.exit(1);
+			}
+		}
 	}
 
 	public ArrayList<ArrayList<Character>> getMap() {
@@ -68,15 +81,24 @@ public class Graphics extends Application {
 		data.setTroops(troops);
 		data.setChoosen(choosen);
 		data.setMarked(marked);
-		drawOnScreen();
+		try {
+			drawOnScreen(false);
+		} catch (MapSizeException e) {
+			//Case impossible, Exception must be thrown earlier at loadMap()
+		}
 	}
 
-	public KeyCode waitForKey() throws Exception {
-		return ic.getKey();
+	public KeyCode waitForKey() {
+		try {
+			return ic.getKey();
+		} catch (InterruptedException e) {
+			System.out.println("[view] WARNING! Waiting for key press got interrupted! Returning null...");
+			return null;
+		}
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) throws StartException {
 		System.out.println("[view] Starting graphical application");
 		
 		data    = new Data();
@@ -86,7 +108,13 @@ public class Graphics extends Application {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
 		loader.setController(oc);
-		Parent root = loader.load();
+		Parent root = null;
+		try {
+			root = loader.load();
+		} catch (Exception e) {
+			System.out.println("[view] ERROR: Could not load FXML file!");
+			throw new StartException("[view] ERROR: Could not start graphical application!");
+		}
 		Scene scene = new Scene(root);
 
 		oc.initialize();
@@ -103,15 +131,24 @@ public class Graphics extends Application {
 		setStartUp(this);
 	}
 
-	public static void main (String[] args) {
-		launch(args);
-	}
-
-	private void drawOnScreen() {
+	private void drawOnScreen(Boolean firstRun) throws MapSizeException {
 		ArrayList<ArrayList<Character>> mapChar     = data.getMap();
 		ArrayList<ArrayList<Character>> troopsChar  = data.getTroops();
 		ArrayList<ArrayList<Character>> choosenChar = data.getChoosen();
 		ArrayList<ArrayList<Character>> markedChar  = data.getMarked();
+
+		try {
+			int fields = mapChar.get(0).size();
+			for (int lineNo=0; lineNo<mapChar.size(); lineNo++) {
+				if (fields != mapChar.get(lineNo).size() || fields != troopsChar.get(lineNo).size())
+					throw new MapSizeException();
+				if (!firstRun)
+					if (fields != choosenChar.get(lineNo).size() || fields != markedChar.get(lineNo).size())
+						throw new MapSizeException();
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new MapSizeException();
+		}
 
 		ArrayList<ArrayList<Image>> mapImg     = new ArrayList<>();
 		ArrayList<ArrayList<Image>> troopsImg  = new ArrayList<>();
@@ -134,6 +171,7 @@ public class Graphics extends Application {
 					markedImg.get(lineNo).add(texture.getMarkedImage(markedChar.get(lineNo).get(fieldNo)));
 			}
 		}
+
 		frame.add(mapImg);
 		frame.add(troopsImg);
 		frame.add(choosenImg);

@@ -13,7 +13,7 @@ public class InputController {
 		notifyAll();
 	}
 
-	public synchronized KeyCode getKey() throws Exception {
+	public synchronized KeyCode getKey() throws InterruptedException {
 		wait();
 		KeyCode keyCode = this.keyCode;
 		this.keyCode = null;

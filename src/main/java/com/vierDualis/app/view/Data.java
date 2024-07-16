@@ -14,7 +14,7 @@ public class Data {
 	private ArrayList<ArrayList<Character>> marked  = new ArrayList<>();
 	private String[] texts = new String[3];
 
-	public void loadMap(String mapPath ) throws Exception {
+	public void loadMap(String mapPath ) {
 		mapPath = mapPath + "/map.csv";
 		System.out.println("[view] Following map path is given:\n\t" + mapPath 
 			+ "\n[view] Following map is loaded into memory:");
@@ -25,7 +25,7 @@ public class Data {
 		return map;
 	}
 
-	public void loadSpawn(String mapPath ) throws Exception {
+	public void loadSpawn(String mapPath ) {
 		mapPath = mapPath + "/spawn.csv";
 		System.out.println("[view] Following troop spawn path is given:\n\t" + mapPath 
 			+ "\n[view] Following troop spawn is loaded into memory:");
@@ -72,7 +72,7 @@ public class Data {
 		return texts;
 	}
 
-	private ArrayList<ArrayList<Character>> readCsv(String filePath) throws Exception {
+	private ArrayList<ArrayList<Character>> readCsv(String filePath) {
 		ArrayList<ArrayList<Character>> list = new ArrayList<>();
 		Scanner scanner = new Scanner(new InputStreamReader(getClass().getResourceAsStream(filePath)));
 		int lineNo = 0;

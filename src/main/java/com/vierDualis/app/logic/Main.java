@@ -29,7 +29,12 @@ public class Main {
 		new Thread() {
 			@Override
 			public void run() {
-				javafx.application.Application.launch(view.Graphics.class);
+				try {
+					javafx.application.Application.launch(view.Graphics.class);
+				} catch (Exception e) {
+					System.out.println("[logic] ERROR: Could not launch the application! Terminating application ...");
+					System.exit(1);
+				}
 			}
 		}.start();
 		graphics = view.Graphics.waitForStartUp();
