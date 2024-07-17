@@ -42,19 +42,7 @@ public class Graphics extends Application {
 		data.loadMap(mapPath);
 		data.loadSpawn(mapPath);
 		data.setTroops(data.getSpawn());
-		try {
-			drawOnScreen(true);
-		} catch (MapSizeException e) {
-			System.out.println("[view] WARNING! The frame layers have different dimensions or are not rectangles. Can not continue!");
-			clearText();
-			setText(1, "Warning!\nMap error\nSee logs\nCan not continue!");
-			try {
-				TimeUnit.DAYS.sleep(1); 
-			} catch (InterruptedException f) {
-				System.out.println("[view] ERROR! Sleep process interrupted. Terminating application...");
-				System.exit(1);
-			}
-		}
+		drawWithCatch(true);
 	}
 
 	public ArrayList<ArrayList<Character>> getMap() {
@@ -81,11 +69,7 @@ public class Graphics extends Application {
 		data.setTroops(troops);
 		data.setChoosen(choosen);
 		data.setMarked(marked);
-		try {
-			drawOnScreen(false);
-		} catch (MapSizeException e) {
-			//Case impossible, Exception must be thrown earlier at loadMap()
-		}
+		drawWithCatch(false);
 	}
 
 	public KeyCode waitForKey() {
@@ -130,6 +114,22 @@ public class Graphics extends Application {
 
 		setStartUp(this);
 	}
+
+	private void drawWithCatch(Boolean firstRun) {
+		try {
+			drawOnScreen(firstRun);
+		} catch (MapSizeException e) {
+			System.out.println("[view] WARNING! The frame layers have different dimensions or are not rectangles. Can not continue!");
+			clearText();
+			setText(1, "Warning!\nMap error\nSee logs\nCan not continue!");
+			try {
+				TimeUnit.DAYS.sleep(1); 
+			} catch (InterruptedException f) {
+				System.out.println("[view] ERROR! Sleep process interrupted. Terminating application...");
+				System.exit(1);
+			}
+		}
+}
 
 	private void drawOnScreen(Boolean firstRun) throws MapSizeException {
 		ArrayList<ArrayList<Character>> mapChar     = data.getMap();
