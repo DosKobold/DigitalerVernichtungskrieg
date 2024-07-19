@@ -101,6 +101,16 @@ public class Main {
 				}
 			}
 			choosenChar.get(cursorY).set(cursorX, 'X');
+
+			for (int i=0; i<troops.size(); i++) {
+				for (int k=0; k<troops.get(i).size(); k++) {
+					if (troops.get(i).get(k) != null &&
+					    troops.get(i).get(k).getX() == cursorX &&
+					    troops.get(i).get(k).getY() == cursorY) {
+						choosenTroop = troops.get(i).get(k);
+					    }
+				}
+			}
 			markedChar = movFinder.stupidMovementRange(mapChar, troopsChar, choosenTroop);
 			setMap(troopsChar, choosenChar, markedChar);
 
