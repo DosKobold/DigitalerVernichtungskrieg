@@ -12,23 +12,21 @@ public class MovementFinder {
 	 */
 
 	public static ArrayList<ArrayList<Character>> stupidMovementRange(ArrayList<ArrayList<Character>> map, ArrayList<ArrayList<Character>> troops, Troop current) {
-		int line, field;
 		Converter converter = new Converter();
 		ArrayList<ArrayList<Character>> marked = new ArrayList<>();
 		ArrayList<ArrayList<Troop>> trooplist = converter.charToTroop(troops);
 
-		exit:
-		for (line=0; line<troops.size(); line++) {
-			for (field=0; field<troops.get(line).size(); field++) {
-				if (trooplist.get(line).get(field).getX() == current.getX() &&
-				    trooplist.get(line).get(field).getY() == current.getY()) {
-					break exit;
-				}
+		for (int line=0; line<map.size(); line++) {
+			marked.add(new ArrayList<Character>());
+			for (int field=0; field<map.get(line).size(); field++) {
+				marked.get(line).add('_');
 			}
 		}
 
 		// Now search around the current player
-		marked = searchAroundField(map, current);
+		if (current != null) {
+			marked = searchAroundField(map, current);
+		}
 
 		return marked;
 	}
@@ -166,6 +164,14 @@ public class MovementFinder {
 			} else {
 				break;
 			}
+		}
+
+		System.out.println("[TEST] " + marked.size());
+		for (int i=0; i<marked.size(); i++) {
+			for (int k=0; k<marked.get(i).size(); k++) {
+				System.out.print(marked.get(i).get(k));
+			}
+			System.out.println("");
 		}
 
 		return marked;
