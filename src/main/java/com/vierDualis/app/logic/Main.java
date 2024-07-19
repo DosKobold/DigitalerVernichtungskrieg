@@ -4,7 +4,6 @@ import view.*;
 import model.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import java.lang.Thread;
 import javafx.scene.input.KeyCode;
 import java.util.ArrayList;
