@@ -102,7 +102,7 @@ public class Main {
 				}
 			}
 			choosenChar.get(cursorY).set(cursorX, 'X');
-			markedChar = movFinder.stupidMovementRange(troops, choosenTroop);
+			markedChar = movFinder.stupidMovementRange(mapChar, troopsChar, choosenTroop);
 			setMap(troopsChar, choosenChar, markedChar);
 
 			//Input
