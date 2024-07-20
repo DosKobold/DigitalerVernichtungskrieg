@@ -134,8 +134,8 @@ public class Graphics extends Application {
 	private void drawOnScreen(Boolean firstRun) throws MapSizeException {
 		ArrayList<ArrayList<Character>> mapChar     = data.getMap();
 		ArrayList<ArrayList<Character>> troopsChar  = data.getTroops();
-		ArrayList<ArrayList<Character>> choosenChar = data.getChoosen();
 		ArrayList<ArrayList<Character>> markedChar  = data.getMarked();
+		ArrayList<ArrayList<Character>> choosenChar = data.getChoosen();
 
 		try {
 			int fields = mapChar.get(0).size();
@@ -152,16 +152,16 @@ public class Graphics extends Application {
 
 		ArrayList<ArrayList<Image>> mapImg     = new ArrayList<>();
 		ArrayList<ArrayList<Image>> troopsImg  = new ArrayList<>();
-		ArrayList<ArrayList<Image>> choosenImg = new ArrayList<>();
 		ArrayList<ArrayList<Image>> markedImg  = new ArrayList<>();
+		ArrayList<ArrayList<Image>> choosenImg = new ArrayList<>();
 
 		ArrayList<ArrayList<ArrayList<Image>>> frame = new ArrayList<>();
 
 		for (int lineNo=0; lineNo<mapChar.size(); lineNo++) {
 			mapImg.add(new ArrayList<Image>());
 			troopsImg.add(new ArrayList<Image>());
-			choosenImg.add(new ArrayList<Image>());
 			markedImg.add(new ArrayList<Image>());
+			choosenImg.add(new ArrayList<Image>());
 			for (int fieldNo=0; fieldNo<mapChar.get(lineNo).size(); fieldNo++) {
 				mapImg.get(lineNo).add(texture.getMapImage(mapChar.get(lineNo).get(fieldNo)));
 				troopsImg.get(lineNo).add(texture.getTroopImage(troopsChar.get(lineNo).get(fieldNo)));
@@ -174,8 +174,8 @@ public class Graphics extends Application {
 
 		frame.add(mapImg);
 		frame.add(troopsImg);
-		frame.add(choosenImg);
 		frame.add(markedImg);
+		frame.add(choosenImg);
 		oc.draw(frame);
 	}
 }
