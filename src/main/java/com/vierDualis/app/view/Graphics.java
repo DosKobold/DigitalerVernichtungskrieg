@@ -165,10 +165,10 @@ public class Graphics extends Application {
 			for (int fieldNo=0; fieldNo<mapChar.get(lineNo).size(); fieldNo++) {
 				mapImg.get(lineNo).add(texture.getMapImage(mapChar.get(lineNo).get(fieldNo)));
 				troopsImg.get(lineNo).add(texture.getTroopImage(troopsChar.get(lineNo).get(fieldNo)));
-				if (!choosenChar.isEmpty())
-					choosenImg.get(lineNo).add(texture.getChoosenImage(choosenChar.get(lineNo).get(fieldNo)));
 				if (!markedChar.isEmpty())
 					markedImg.get(lineNo).add(texture.getMarkedImage(markedChar.get(lineNo).get(fieldNo)));
+				if (!choosenChar.isEmpty())
+					choosenImg.get(lineNo).add(texture.getChoosenImage(choosenChar.get(lineNo).get(fieldNo)));
 			}
 		}
 
