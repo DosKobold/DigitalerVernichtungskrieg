@@ -93,7 +93,29 @@ public class Main {
 			//Output
 			troopsChar = converter.troopToChar(troops);
 
+			int both = 0;
+			check_loop:
+			for (int i=0; i<troops.size(); i++) {
+				for (int k=0; k<troops.get(i).size(); k++) {
+					if (troops.get(i).get(k) != null) {
+						if (troops.get(i).get(k).getColor().equals(playerColor)) {
+							continue;
+						} else {
+							both = 1;
+							break check_loop;
+						}
+					}
+				}
+			}
 			setText(0, "Spieler:\n" + ((playerColor.equals("red")) ? "Rot" : "Blau"));
+
+			// only one color exists on the map
+			if (both == 0) {
+				setText(0, "");
+				setText(1, "Spieler " + ((playerColor.equals("red")) ? "Rot" : "Blau") + "\nhat gewonnen!");
+				setText(2, "");
+				break;
+			}
 			
 			for (int i=0; i<mapChar.size(); i++) {
 				for (int n=0; n<mapChar.get(i).size(); n++) {
