@@ -19,7 +19,7 @@ public class MovementFinder {
 		}
 
 		// Now search around the current player
-		if (current != null) {
+		if (current != null && current.getMove() == 1) {
 			marked = searchAroundField(map, current);
 		}
 

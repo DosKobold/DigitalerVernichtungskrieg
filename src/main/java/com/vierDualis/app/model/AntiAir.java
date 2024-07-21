@@ -8,7 +8,7 @@ public class AntiAir extends Troop {
     private Map<String, Integer> dmgTable = new HashMap<>();
 
     public AntiAir(int x, int y, String color) {
-        super(100, 1, 6, x, y, color);
+        super(100, 1, 1, 6, x, y, color);
 
 	dmgTable.put("Infantry", 105);
 	dmgTable.put("MechanizedInfantry", 105);

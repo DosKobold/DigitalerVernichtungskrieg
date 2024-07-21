@@ -8,7 +8,7 @@ public class Bomber extends Troop {
     private Map<String, Integer> dmgTable = new HashMap<>();
 
     public Bomber(int x, int y, String color) {
-        super(100, 1, 7, x, y, color);
+        super(100, 1, 1, 7, x, y, color);
 
 	dmgTable.put("Infantry", 110);
 	dmgTable.put("MechanizedInfantry", 110);

@@ -83,8 +83,10 @@ public class Main {
 			choosenChar.add(new ArrayList<Character>());
 			for (int field=0; field<mapChar.get(line).size(); field++) {
 				choosenChar.get(line).add('_');
-				if (troops.get(line).get(field) != null)
+				if (troops.get(line).get(field) != null) {
 					troops.get(line).get(field).setAttack(1);
+					troops.get(line).get(field).setMove(1);
+				}
 			}
 		}
 
@@ -139,7 +141,7 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case SPACE:	if (interact() == 1) break exit;
+				case SPACE:	interact();
 						break;
 				case Q:		choosenTroop = null;
 						setText(1, "");
@@ -150,7 +152,7 @@ public class Main {
 		}
 	}
 
-	private static int interact() throws Exception {
+	private static void interact() throws Exception {
 		Troop cursorTroop = troops.get(cursorY).get(cursorX);
 		if (cursorTroop != null) {
 			if (choosenTroop == null) {
@@ -180,12 +182,10 @@ public class Main {
 					}
 				}
 			}
-		} else if (choosenTroop != null) {
+		} else if (choosenTroop != null && choosenTroop.getMove() == 1) {
 			//Replace the troop
 			replace(choosenTroop, cursorX, cursorY);
-			return 1;
 		}
-		return 0;
 	}
 
 	private static void replace(Troop troop, int posX, int posY) {
@@ -195,6 +195,7 @@ public class Main {
 			troop.setX(posX);
 			troop.setY(posY);
 			troops.get(posY).set(posX, troop);
+			troop.setMove(0);
 		} else {
 			System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " cannot replace ((" + troop.getX() + "|" + troop.getY() + ") -> (" + posX + "|" + posY + "))");
 		}

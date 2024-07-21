@@ -8,7 +8,7 @@ public class MechanizedInfantry extends Troop {
     private Map<String, Integer> dmgTable = new HashMap<>();
 
     public MechanizedInfantry(int x, int y, String color) {
-        super(100, 1, 2, x, y, color);
+        super(100, 1, 1, 2, x, y, color);
 
 	dmgTable.put("Infantry", 65);
 	dmgTable.put("MechanizedInfantry", 55);
