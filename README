@@ -8,8 +8,6 @@ Authors:     Tom Schwindl  <schwindl@posteo.de>
              Paul Stöckle  <paul.stoeckle@t-online.de>
              Elias Schnick <eliasschnick@t-online.de>
              Ben Oeckl     <ben@oeckl.com>
-Link:	     https://github.com/DosKobold/DigitalerVernichtungskrieg
-Status:	     Missing logic of movement -> infinite movement possible
 
  Compile and Run
 +---------------+
@@ -30,15 +28,3 @@ Interact with a troop: 	 Space
 Stop choosing own troop: Q
 Attack: 		 J
 
- Tasks and Responsibilities
-+--------------------------+
-
-+------------------------------------+
-|Task     | Name        | Status     |
-|---------+-------------+------------|
-|view     | P. Stöckle  | Finished   |
-|maven    | P. Stöckle  | Finished   |
-|logic    | T. Schwindl | Unfinished |
-|model    | B. Oeckl    | Finished   |
-|textures | E. Schnick  | Finished   |
-+------------------------------------+
