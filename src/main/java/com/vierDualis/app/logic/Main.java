@@ -165,11 +165,15 @@ public class Main {
 	}
 
 	private static void replace(Troop troop, int posX, int posY) {
-		troops.get(troop.getY()).set(troop.getX(),null);
-		System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " replaced ((" + troop.getX() + "|" + troop.getY() + ") -> (" + posX + "|" + posY + "))");
-		troop.setX(posX);
-		troop.setY(posY);
-		troops.get(posY).set(posX, troop);
+		if (markedChar.get(posY).get(posX) == 'X') {
+			troops.get(troop.getY()).set(troop.getX(),null);
+			System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " replaced ((" + troop.getX() + "|" + troop.getY() + ") -> (" + posX + "|" + posY + "))");
+			troop.setX(posX);
+			troop.setY(posY);
+			troops.get(posY).set(posX, troop);
+		} else {
+			System.out.println("[logic] " + choosenTroop.getColor() + " " + choosenTroop.getClass().getSimpleName() + " cannot replace ((" + troop.getX() + "|" + troop.getY() + ") -> (" + posX + "|" + posY + "))");
+		}
 	}
 
 	private static void setText(int no, String text) {
