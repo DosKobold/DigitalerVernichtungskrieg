@@ -139,7 +139,7 @@ public class Main {
 					    	break;
 				case LEFT:  	if (cursorX > 0) cursorX -= 1;
 					     	break;
-				case SPACE:	interact();
+				case SPACE:	if (interact() == 1) break exit;
 						break;
 				case Q:		choosenTroop = null;
 						setText(1, "");
@@ -150,7 +150,7 @@ public class Main {
 		}
 	}
 
-	private static void interact() throws Exception {
+	private static int interact() throws Exception {
 		Troop cursorTroop = troops.get(cursorY).get(cursorX);
 		if (cursorTroop != null) {
 			if (choosenTroop == null) {
@@ -183,7 +183,9 @@ public class Main {
 		} else if (choosenTroop != null) {
 			//Replace the troop
 			replace(choosenTroop, cursorX, cursorY);
+			return 1;
 		}
+		return 0;
 	}
 
 	private static void replace(Troop troop, int posX, int posY) {
