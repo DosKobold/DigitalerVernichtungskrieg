@@ -32,7 +32,7 @@ public class MovementFinder {
 	}
 
 	private static ArrayList<ArrayList<Character>> searchAroundField(ArrayList<ArrayList<Character>> map, Troop current) {
-		int ret;
+		int ret = 0;
 		int range;
 		int posX = current.getX();
 		int posY = current.getY();
@@ -47,65 +47,92 @@ public class MovementFinder {
 			}
 		}
 
-		// look left
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX-i >= 0) {
-				ret = getTerrainRange(troop, map.get(posY).get(posX-i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY).set(posX-i, 'X');
-				} else {
-					break;
-				}
-			} else {
-				break;
-			}
-		}
-
 		// look left up
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX-i >= 0 && posY-i >= 0) {
-				ret = getTerrainRange(troop, map.get(posY-i).get(posX-i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY-i).set(posX-i, 'X');
+		for (int k=0; k<=movRange/2; k++) {
+			range = movRange;
+			for (int i=1; range>0; i++) {
+				if (posX-i >= 0 && posY-k >= 0) {
+					ret = getTerrainRange(troop, map.get(posY-k).get(posX-i));
+					if (ret == 0) {
+						break;
+					}
+					range -= ret;
+					if (range >= 0) {
+						marked.get(posY-k).set(posX-i, 'X');
+					} else {
+						break;
+					}
 				} else {
 					break;
 				}
-			} else {
-				break;
 			}
 		}
 
 		// look left down
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX-i > 0 && posY+i < map.size()) {
-				ret = getTerrainRange(troop, map.get(posY+i).get(posX-i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY+i).set(posX-i, 'X');
+		for (int k=0; k<=movRange/2; k++) {
+			range = movRange;
+			for (int i=1; range>0; i++) {
+				if (posX-i >= 0 && posY+k < map.size()) {
+					ret = getTerrainRange(troop, map.get(posY+k).get(posX-i));
+					if (ret == 0) {
+						break;
+					}
+					range -= ret;
+					if (range >= 0) {
+						marked.get(posY+k).set(posX-i, 'X');
+					} else {
+						break;
+					}
 				} else {
 					break;
 				}
-			} else {
-				break;
+			}
+		}
+
+		// look right up
+		for (int k=0; k<=movRange/2; k++) {
+			range = movRange;
+			for (int i=1; range>0; i++) {
+				if (posX+i < map.get(0).size() && posY-k >= 0) {
+					ret = getTerrainRange(troop, map.get(posY-k).get(posX+i));
+					if (ret == 0) {
+						break;
+					}
+					range -= ret;
+					if (range >= 0) {
+						marked.get(posY-k).set(posX+i, 'X');
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+
+		// look right down
+		for (int k=0; k<=movRange/2; k++) {
+			range = movRange;
+			for (int i=1; range>0; i++) {
+				if (posX+i < map.get(0).size() && posY+k < map.size()) {
+					ret = getTerrainRange(troop, map.get(posY+k).get(posX+i));
+					if (ret == 0) {
+						break;
+					}
+					range -= ret;
+					if (range >= 0) {
+						marked.get(posY+k).set(posX+i, 'X');
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
 			}
 		}
 
 		// look down
-		range = movRange;
+		range = movRange/2;
 		for (int i=1; range>0; i++) {
 			if (posY+i < map.size()) {
 				ret = getTerrainRange(troop, map.get(posY+i).get(posX));
@@ -123,65 +150,8 @@ public class MovementFinder {
 			}
 		}
 
-		// look right down
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX+i < map.get(0).size() && posY+i < map.size()) {
-				ret = getTerrainRange(troop, map.get(posY+i).get(posX+i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY+i).set(posX+i, 'X');
-				} else {
-					break;
-				}
-			} else {
-				break;
-			}
-		}
-
-		// look right
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX+i < map.get(0).size()) {
-				ret = getTerrainRange(troop, map.get(posY).get(posX+i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY).set(posX+i, 'X');
-				} else {
-					break;
-				}
-			} else {
-				break;
-			}
-		}
-
-		// look right up
-		range = movRange;
-		for (int i=1; range>0; i++) {
-			if (posX+i < map.get(0).size() && posY-i > 0) {
-				ret = getTerrainRange(troop, map.get(posY-i).get(posX+i));
-				if (ret == 0) {
-					break;
-				}
-				range -= ret;
-				if (range >= 0) {
-					marked.get(posY-i).set(posX+i, 'X');
-				} else {
-					break;
-				}
-			} else {
-				break;
-			}
-		}
-
 		// look up
-		range = movRange;
+		range = movRange/2;
 		for (int i=1; range>0; i++) {
 			if (posY-i >= 0) {
 				ret = getTerrainRange(troop, map.get(posY-i).get(posX));
