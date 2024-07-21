@@ -128,7 +128,7 @@ public class Graphics extends Application {
 		} catch (MapSizeException e) {
 			System.out.println("[view] WARNING! The frame layers have different dimensions or are not rectangles. Can not continue!");
 			clearText();
-			setText(1, "Warning!\nMap error\nSee logs\nCan not continue!");
+			setText(1, "Warnung!\nMapfehler\nSiehe logs\nKann nicht fortführen!");
 			try {
 				TimeUnit.DAYS.sleep(1); 
 			} catch (InterruptedException f) {

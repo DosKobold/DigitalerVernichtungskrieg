@@ -42,7 +42,7 @@ public class Main {
 		graphics = view.Graphics.waitForStartUp();
 		
 		setText(0, "\n[1] Little Island");
-		setText(1, "Choose your map\n[2] Eon Springs");
+		setText(1, "Wähle die Karte\n[2] Eon Springs");
 		setText(2, "\n[3] Piston Dam");
 
 		exit:
