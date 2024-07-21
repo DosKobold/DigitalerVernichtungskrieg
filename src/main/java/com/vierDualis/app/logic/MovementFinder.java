@@ -48,7 +48,7 @@ public class MovementFinder {
 		}
 
 		// look left up
-		for (int k=0; k<=movRange/2; k++) {
+		for (int k=0; k<=movRange; k++) {
 			range = movRange;
 			for (int i=1; range>0; i++) {
 				if (posX-i >= 0 && posY-k >= 0) {
@@ -69,7 +69,7 @@ public class MovementFinder {
 		}
 
 		// look left down
-		for (int k=0; k<=movRange/2; k++) {
+		for (int k=0; k<=movRange; k++) {
 			range = movRange;
 			for (int i=1; range>0; i++) {
 				if (posX-i >= 0 && posY+k < map.size()) {
@@ -90,7 +90,7 @@ public class MovementFinder {
 		}
 
 		// look right up
-		for (int k=0; k<=movRange/2; k++) {
+		for (int k=0; k<=movRange; k++) {
 			range = movRange;
 			for (int i=1; range>0; i++) {
 				if (posX+i < map.get(0).size() && posY-k >= 0) {
@@ -111,7 +111,7 @@ public class MovementFinder {
 		}
 
 		// look right down
-		for (int k=0; k<=movRange/2; k++) {
+		for (int k=0; k<=movRange; k++) {
 			range = movRange;
 			for (int i=1; range>0; i++) {
 				if (posX+i < map.get(0).size() && posY+k < map.size()) {
@@ -132,7 +132,7 @@ public class MovementFinder {
 		}
 
 		// look down
-		range = movRange/2;
+		range = movRange;
 		for (int i=1; range>0; i++) {
 			if (posY+i < map.size()) {
 				ret = getTerrainRange(troop, map.get(posY+i).get(posX));
@@ -151,7 +151,7 @@ public class MovementFinder {
 		}
 
 		// look up
-		range = movRange/2;
+		range = movRange;
 		for (int i=1; range>0; i++) {
 			if (posY-i >= 0) {
 				ret = getTerrainRange(troop, map.get(posY-i).get(posX));
