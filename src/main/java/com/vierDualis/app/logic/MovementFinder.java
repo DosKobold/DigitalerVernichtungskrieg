@@ -49,7 +49,6 @@ public class MovementFinder {
 				if (posX-i >= 0 && posY-k >= 0) {
 					ret = getTerrainRange(troop, map.get(posY-k).get(posX-i));
 					if (ret == 0) {
-						k=movRange;
 						break;
 					}
 					range -= ret;
@@ -92,7 +91,6 @@ public class MovementFinder {
 				if (posX+i < map.get(0).size() && posY-k >= 0) {
 					ret = getTerrainRange(troop, map.get(posY-k).get(posX+i));
 					if (ret == 0) {
-						k=movRange;
 						break;
 					}
 					range -= ret;
