@@ -124,7 +124,7 @@ public class Main {
 			}
 			choosenChar.get(cursorY).set(cursorX, 'X');
 
-			markedChar = movFinder.stupidMovementRange(mapChar, troopsChar, choosenTroop);
+			markedChar = movFinder.movementRange(mapChar, troopsChar, choosenTroop);
 			setMap(troopsChar, choosenChar, markedChar);
 
 			//Input

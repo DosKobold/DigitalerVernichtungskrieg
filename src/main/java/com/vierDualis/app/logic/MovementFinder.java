@@ -6,12 +6,7 @@ import java.util.*;
 
 public class MovementFinder {
 
-	/*
-	 * The movement finder is unfinished. It should be there to mark all possible fields
-	 * and only allow moves to these fields.
-	 */
-
-	public static ArrayList<ArrayList<Character>> stupidMovementRange(ArrayList<ArrayList<Character>> map, ArrayList<ArrayList<Character>> troops, Troop current) {
+	public static ArrayList<ArrayList<Character>> movementRange(ArrayList<ArrayList<Character>> map, ArrayList<ArrayList<Character>> troops, Troop current) {
 		Converter converter = new Converter();
 		ArrayList<ArrayList<Character>> marked = new ArrayList<>();
 		ArrayList<ArrayList<Troop>> trooplist = converter.charToTroop(troops);
