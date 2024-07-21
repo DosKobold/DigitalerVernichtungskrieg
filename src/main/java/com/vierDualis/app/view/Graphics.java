@@ -1,12 +1,13 @@
 package view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -109,6 +110,12 @@ public class Graphics extends Application {
 		primaryStage.setMaximized(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		Platform.setImplicitExit(true);
+		primaryStage.setOnCloseRequest((ae) -> {
+			Platform.exit();
+			System.exit(0);
+		});
 
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {ic.setKey(keyEvent);});
 
